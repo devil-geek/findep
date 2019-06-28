@@ -1,0 +1,45 @@
+.form {
+  font-size: 0.9rem;
+  .label {
+    font-size: 0.9rem;
+  }
+  .is-checkradio[type="radio"] + label {
+    font-size: 0.9rem;
+  }
+  .is-checkradio[type=checkbox] + label, .is-checkradio[type=radio] + label {
+    margin: .5rem .5rem .5rem 0;
+  }
+  small {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: #767779;
+  }
+
+  .response{
+    border: $primary solid 1px;
+    border-radius: 10px;
+    padding: 1rem;
+
+    &-amount{
+      font-size: 2rem;
+      font-weight: bold;
+      color: $primary;
+    }
+    a{
+      display: block;
+      font-size: .8rem;
+      padding: .5rem;
+    }
+  }
+
+     a{
+      display: block;
+      font-size: .8rem;
+      padding: 1rem;
+    }
+}
+
+.card-content.form {
+  padding: 1.2rem 0.75rem;
+}
+

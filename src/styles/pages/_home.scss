@@ -1,0 +1,68 @@
+.list {
+  &-container {
+    padding-left: 0;
+    margin-right: 0.3rem;
+  }
+  &-num {
+    font-size: 1.1rem;
+    background: #fff;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    align-items: center;
+    line-height: 1.7rem;
+    color: $primary;
+    font-weight: 700;
+    border: $primary solid 2px;
+    text-align: center;
+    margin-top: 20%;
+  }
+  &-text {
+    font-size: 0.9rem;
+  }
+}
+
+.empresa {
+  background: #efefef url("../images/bg-circulo-gris.png");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+}
+
+.div-wrapper {
+  position: relative;
+  transition: all 5s ease-in-out;
+
+  .div-text {
+    margin: 2rem 0;
+    max-height: 280px;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 0.75rem 0.75rem 2rem;
+    font-size: 0.9rem;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 96%,
+      rgba(#e5e5e5, .8) 99%
+    );
+    transition: max-height 1s cubic-bezier(0, 1, 0, 1);
+
+  }
+  .button {
+    z-index: 5;
+    position: absolute;
+    bottom: -3em;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #7e7f80;
+  }
+  &.open{
+    .div-text{
+      max-height: 1000px;
+      background: #fff;
+      transition: max-height 1s ease-in-out;
+    }
+  }
+}

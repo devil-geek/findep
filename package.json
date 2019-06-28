@@ -2,9 +2,10 @@
 	"name": "gatsby-bulma-quickstart",
 	"description": "A Project to bootstrap your next Gatsby + Bulma site.",
 	"version": "1.5.2",
-	"author": "Aman Mittal <amandeepmittal@live.com>",
+	"author": "Carlos Ocejo car.oj@hotmail.com",
 	"dependencies": {
-		"bulma": "^0.7.4",
+		"bulma": "^0.7.5",
+		"bulma-checkradio": "^1.1.1",
 		"gatsby": "^2.3.25",
 		"gatsby-image": "^2.0.39",
 		"gatsby-plugin-google-analytics": "^2.0.18",
@@ -14,13 +15,17 @@
 		"gatsby-plugin-sass": "^2.0.11",
 		"gatsby-plugin-sharp": "^2.0.35",
 		"gatsby-plugin-sitemap": "^2.0.12",
+		"gatsby-plugin-web-font-loader": "^1.0.4",
 		"gatsby-source-filesystem": "^2.0.29",
 		"gatsby-transformer-sharp": "^2.1.18",
 		"node-sass": "^4.11.0",
 		"react": "^16.8.6",
+		"react-anchor-link-smooth-scroll": "^1.0.12",
+		"react-countup": "^4.1.3",
 		"react-dom": "^16.8.6",
 		"react-helmet": "^5.2.0",
-		"react-icons": "^3.6.1"
+		"react-icons": "^3.6.1",
+		"react-visibility-sensor": "^5.0.2"
 	},
 	"keywords": [
 		"gatsby",
@@ -39,9 +44,5 @@
 	},
 	"devDependencies": {
 		"prettier": "^1.14.2"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/amandeepmittal/gatsby-bulma-quickstart"
 	}
 }
