@@ -3,16 +3,13 @@
   .label {
     font-size: 0.9rem;
   }
-  .is-checkradio[type="radio"] + label {
-    font-size: 0.9rem;
-  }
-  .is-checkradio[type=checkbox] + label, .is-checkradio[type=radio] + label {
-    margin: .5rem .5rem .5rem 0;
-  }
   small {
     font-size: 0.7rem;
-    font-weight: 300;
-    color: #767779;
+    font-weight: 400;
+    color: #58595A;
+  }
+  .help{
+    font-size: 0.7rem;
   }
 
   .response{
@@ -39,7 +36,103 @@
     }
 }
 
+.card{
+  border-radius: 10px;
+}
 .card-content.form {
   padding: 1.2rem 0.75rem;
 }
 
+.check-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: .9rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.check-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.check-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.check-container input:checked ~ .checkmark {
+  background-color: $success;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.check-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.check-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.input, .select select{
+  border-radius: 10px;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after{
+  border-color: #767779;
+}
+
+
+
+@include tablet{
+  .calculate{
+    margin-top: -150px;
+  }
+}
+
+@include desktop{
+  .calculate{
+    margin-top: -200px;
+  }
+}
+
+@include widescreen{
+  .card-content.form {
+  padding: 1.5rem 2rem;
+}
+}

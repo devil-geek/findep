@@ -1,7 +1,25 @@
 .has-shadow{
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.26);
 }
 
 .has-mlr-small{
     margin: 0 .5rem;
+}
+
+.is-ml{
+    &-left{
+    margin-left: 0 !important;
+    }
+    &-right{
+        margin-right: 0 !important;
+    }
+}
+
+.is-pl{
+    &-left{
+        padding-left: 0 !important;
+    }
+    &-right{
+        padding-right: 0 !important;
+    }
 }

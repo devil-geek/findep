@@ -1,15 +1,10 @@
 import React from "react";
-
 import Helmet from "./helmet";
-import Header from "./header";
-import Navbar from "./navbar";
 
 const Layout = ({ children }) => (
-  <div>
+  <div className="container">
     <Helmet />
     <div id="main">
-      <Navbar />
-      <Header />
       {children}
     </div>
   </div>

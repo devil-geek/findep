@@ -1,0 +1,53 @@
+.testimonials {
+  margin-bottom: 6rem;
+  .testimonial {
+    margin: 2rem;
+    .image img.is-rounded {
+      border: 1px solid $primary;
+      padding: 5px;
+    }
+  }
+  .slick-dots li {
+    & button {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #767779;
+    }
+    &.slick-active {
+      button {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: $primary;
+      border: 2px solid $primary;
+
+      }
+    }
+  }
+  .slick-dots li.slick-active button:before {
+    opacity: 1;
+    color: white;
+    border: 3px solid white;
+    border-radius: 50%;
+    line-height: 22px;
+  }
+
+  .slick-dots li button:before {
+    font-family: "slick";
+    font-size: 5px;
+    line-height: 20px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    content: "";
+    text-align: center;
+    opacity: 0.25;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

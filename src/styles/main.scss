@@ -1,7 +1,6 @@
 
 @import './abstracts/variables';
 @import '~bulma/bulma.sass';
-@import '~bulma-checkradio';
 @import './base/base';
 @import './components/navbar';
 @import './components/header';
@@ -9,5 +8,6 @@
 @import './components/button';
 @import './components/contact';
 @import './components/forms';
+@import './components/testimonials';
 @import './pages/home';
 @import './abstracts/utilities';

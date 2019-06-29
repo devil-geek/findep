@@ -15,12 +15,13 @@ const Header = ({ siteTitle }) => (
       }
     `}
     render={data => (
-      <section className="hero is-large header"
+      <section className="hero header"
         style=
         {{
           backgroundImage:
             "url(" + data.placeholderImage.childImageSharp.fluid.src + ")"
         }}
+        id="inicio"
         >
         <div className="hero-body">
           <div className="container center">

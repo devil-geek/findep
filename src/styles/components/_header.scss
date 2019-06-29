@@ -4,4 +4,21 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: 90%;
+  margin-bottom: 10px;
+}
+
+@include desktop{
+  .header{
+    min-height: 400px;
+    background-position-y: top;
+    .subtitle{
+      font-size: 2rem !important;
+    }
+  }
+}
+
+@include widescreen{
+  .header{
+    margin-top: 65px;
+  }
 }

@@ -30,6 +30,24 @@
     & img {
       max-height: 2.5rem;
     }
+    color: #58595A !important;
+    
+    &:hover,&:active{
+      color: $primary !important;
+    }
+
+     &.active{
+      color: $primary !important;
+      font-weight: bold;
+      border-bottom: $primary solid 3px;
+    }
+
+    span {
+      border-radius: 10px;
+      border: $primary solid 1px;
+      padding: 0.75rem 2rem;
+      color: $primary;
+    }
   }
 
   .logo {
@@ -63,7 +81,7 @@
     &:link,
     &:visited {
       text-align: center;
-      color: #fff;
+      color: #fff !important;
       padding: 1rem;
       background-color: $primary;
     }
@@ -86,6 +104,7 @@
       border-radius: 10px;
       border: #fff solid 1px;
       padding: 0.75rem 2rem;
+      color: #fff;
     }
   }
 
@@ -122,5 +141,25 @@
   }
   100% {
     left: 0;
+  }
+}
+
+@include widescreen{
+  .navbar{
+    height: 70px;
+
+    &-item {
+    & img {
+      max-height: 3.5rem;
+    }
+  }
+  .logo {
+    &-img {
+      margin-left: 0;
+    }
+    &-text {
+      max-width: 180px;
+    }
+  }
   }
 }

@@ -26,7 +26,7 @@ const Footer = () => (
     `}
     render={data => {
       return (
-        <footer className="footer center">
+        <footer className="footer center has-background-white">
           <h1 className="has-text-centered subtitle">GRUPO FINDEP</h1>
 
           <div className="columns">
