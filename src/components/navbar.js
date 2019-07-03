@@ -89,13 +89,6 @@ const Navbar = props => (
             >
               Nuestra empresa
             </AnchorLink>
-            <Link
-              to="/cliente"
-              className="navbar-item"
-              activeClassName="active"
-            >
-              <span>¿Eres cliente?</span>
-            </Link>
           </div>
         </div>
       </div>
@@ -103,6 +96,7 @@ const Navbar = props => (
     <div id="mobileMenu">
       <AnchorLink
         onClick={Menu}
+        offset="50"
         href="#inicio"
         className={
           props.active === "inicio" ? "navbar-item active" : "navbar-item"
@@ -134,9 +128,6 @@ const Navbar = props => (
       >
         Nuestra empresa
       </AnchorLink>
-      <Link to="/cliente" className="navbar-item" activeClassName="active">
-        <span>¿Eres cliente?</span>
-      </Link>
     </div>
   </div>
 );

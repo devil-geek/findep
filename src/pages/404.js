@@ -1,11 +1,24 @@
-import React from 'react'
-import Layout from '../components/layout'
+import React from "react";
+import Layout from "../components/layout";
+import Navbar from "../components/navbar";
+import icon from "../images/iconos/icono-sad.svg";
 
 const NotFoundPage = () => (
   <Layout>
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+    <Navbar />
+    <section className="section">
+      <div className="has-text-centered">
+        <h1 className="has-text-primary has-text-centered subtitle">
+          ¡LO SENTIMOS!
+        </h1>
+        <img width="80px" src={icon} alt="aprobado" />
+        <br />
+        <br />
+        <p>La página que buscas no existe.</p>
+        <br />
+      </div>
+    </section>
   </Layout>
-)
+);
 
-export default NotFoundPage
+export default NotFoundPage;

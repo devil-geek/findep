@@ -1,0 +1,30 @@
+.finish{
+  &-text{
+    position: absolute;
+    top: 110px;
+    left: 0;
+    padding: 1.5rem 1rem 2rem;
+  }
+}
+
+.social{
+  border: $primary solid 2px;
+  padding: 1.2rem .5rem;
+  border-radius: 10px;
+}
+
+
+@include widescreen{
+  .finish{
+    &.header{
+      min-height: 300px !important;
+    }
+  &-text{
+    position: absolute;
+    top: 110px;
+    left: 0;
+    padding: 1.5rem 1rem 2rem;
+    font-size: 2rem !important;
+  }
+}
+}

@@ -9,7 +9,7 @@ import Collapsible from "../components/collapsible";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import Contact from "../components/contact";
 import Footer from "../components/footer";
-import StepOne from "../components/forms/stepOne";
+import Calculator from "../components/calculator";
 import Testimonials from "../components/testimonials";
 
 class IndexPage extends Component {
@@ -40,7 +40,38 @@ class IndexPage extends Component {
         </VisibilitySensor>
         <div className="columns is-centered">
           <div className="column is-4-widescreen is-5-desktop is-6-tablet">
-            <StepOne />
+            <Calculator />
+            <div className="section is-size-7 is-pl-bottom">
+              <p>
+                <strong>MICRONEGOCIO: CAT PROMEDIO: 176.6% Sin IVA. </strong>
+                <br />
+                Para fines informativos y de comparación. Tasa de Interés Anual
+                Fija Máxima: 114.8% Plazo Mínimo: 26 semanas Plaza Máximo: 78
+                semanas.
+              </p>
+              <br />
+              <p>
+                <strong>
+                  CREDIINMEDIATO SIMPLE: CAT PROMEDIO: 164.6% Sin IVA.{" "}
+                </strong>
+                <br />
+                Para fines informativos y de comparación. Tasa de Interés Anual
+                Fija Máxima: 114.6% Plazo Mínimo: 12 quincenas Plaza Máximo: 48
+                quincenas.
+              </p>
+              <br />
+              <p>
+                *Sujeto a aprobación de crédito. Consulta términos, condiciones
+                de contratación, tasas de interés y comisiones en{" "}
+                <a
+                  href="https://www.independencia.com.mx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  www.independencia.com.mx
+                </a>
+              </p>
+            </div>
           </div>
           <div className="column is-4-widescreen is-offset-1-widescreen is-5-tablet ">
             <VisibilitySensor

@@ -72,6 +72,10 @@
   width: 22px;
   background-color: #eee;
   border-radius: 50%;
+
+  &.checkbox{
+    border-radius: 6px;
+  }
 }
 
 /* On mouse-over, add a grey background color */

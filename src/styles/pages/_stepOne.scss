@@ -1,0 +1,20 @@
+.wrap-amount{
+  background: #EFEFEF;
+  border-bottom: $primary solid 5px;
+  font-size: .9rem;
+  padding: .8rem;
+}
+.form-title{
+  padding: .8rem;
+}
+
+@include desktop{
+  .wrap-amount{
+    float: right;
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+  .form-title{
+    padding: 1.5rem .8rem;
+  }
+}

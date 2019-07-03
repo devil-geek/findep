@@ -66,8 +66,14 @@ const Footer = () => (
 
             <br />
             <br />
-            <p>
-              <a>Aviso de privacidad</a> | <a>Términos y condiciones</a>
+            <p className="is-size-6">
+              <button className="button is-white has-text-link is-size-7 is-pl-left is-pl-right">
+                Aviso de privacidad
+              </button>
+              {" | "}
+              <button className="button is-white has-text-link is-size-7 is-pl-left is-pl-right">
+                Términos y condiciones
+              </button>
             </p>
           </div>
         </footer>

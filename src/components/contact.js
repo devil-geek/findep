@@ -4,7 +4,8 @@ import {
   FaClock,
   FaFacebookF,
   FaYoutube,
-  FaMapMarkerAlt
+  FaMapMarkerAlt,
+  FaInstagram
 } from "react-icons/fa";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
@@ -16,7 +17,7 @@ const Contact = () => {
         <div className="column is-5 is-offset-1">
           <div className="columns is-mobile">
             <div className="column is-1">
-              <FaPhone size="fa-lg" />
+              <FaPhone size="1.2em" />
             </div>
             <div className="column">
               <strong className="has-text-white">01800 600 0009</strong>
@@ -24,7 +25,7 @@ const Contact = () => {
           </div>
           <div className="columns is-mobile">
             <div className="column is-1">
-              <FaMapMarkerAlt size="fa-lg" />
+              <FaMapMarkerAlt size="1.2em" />
             </div>
             <div className="column">
               Av. Nicolás Bravo No. 100 1er. y 3er. Piso Col. Centro, C.P. 5000
@@ -36,7 +37,7 @@ const Contact = () => {
           </div>
           <div className="columns is-mobile">
             <div className="column is-1">
-              <FaClock size="fa-lg" />
+              <FaClock size="1.2em" />
             </div>
             <div className="column">
               <strong className="has-text-white">Lunes a viernes: </strong>
@@ -46,12 +47,30 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div className="column is-2 is-offset-3 has-text-centered">
-          <a className="button btn-round btn-outline has-mlr-small">
-            <FaFacebookF size="fa-lg" />
+        <div className="column is-3 is-offset-3 has-text-centered">
+          <a
+            href="https://www.instagram.com/financieraindependenciaoficial/?hl=es-la"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button btn-round btn-outline has-mlr-small"
+          >
+            <FaInstagram size="1.3em" />
           </a>
-          <a className="button btn-round btn-outline has-mlr-small">
-            <FaYoutube size="fa-lg" />
+          <a
+            href="https://www.facebook.com/Financiera.Indep/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button btn-round btn-outline has-mlr-small"
+          >
+            <FaFacebookF size="1.3em" />
+          </a>
+          <a
+            href="https://www.youtube.com/channel/UCeIISxyPtdmouQatpSWIRMw?view_as=subscriber"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button btn-round btn-outline has-mlr-small"
+          >
+            <FaYoutube size="1.3em" />
           </a>
         </div>
       </div>

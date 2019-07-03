@@ -1,0 +1,47 @@
+.steps {
+  margin-top: 50px;
+  .columns {
+    height: 70px;
+    background: #e5e5e5;
+    .column {
+      border-right: #fff solid 1px;
+      height: 70px;
+      position: relative;
+      &.active {
+        font-weight: bold;
+        background: $primary;
+        color: #fff;
+        clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 80% 100%, 0% 100%);
+      }
+      &.complete{
+        background: $primary;
+        color: rgba(#fff, .8);
+        border-right: none;
+      }
+    }
+  }
+  .step {
+    font-size: 0.7rem;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@include widescreen {
+  .steps {
+    margin-top: 70px;
+    .columns {
+      .column {
+        &.active {
+          clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+        }
+      }
+    }
+    .step {
+      font-size: .9rem;
+    }
+  }
+}
