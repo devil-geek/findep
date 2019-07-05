@@ -53,12 +53,12 @@ const Gracias = () => (
               <br />
               <br />
               <div className="social">
-                <h1 className="has-text-primary has-text-centered subtitle">
+                <h2 className="has-text-primary has-text-centered subtitle">
                   <FaRegThumbsUp size="2.5rem" />
                   <br />
                   <br />
                   ¡COMPÁRTENOS!
-                </h1>
+                </h2>
                 <p className="has-text-centered">
                   ¿Conoces a alguien a quien le podamos ayudar a cumplir sus
                   objetivos?

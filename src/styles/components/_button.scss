@@ -1,5 +1,6 @@
 .button{
   border-radius: 10px;
+  height: 2.5em;
 }
 .btn{
   &-block{
@@ -28,5 +29,11 @@
     font-size: .8rem;
     padding: .5rem;
     margin: 0 auto;
+  }
+}
+
+@include widescreen{
+  .button{
+    font-size: 1.25rem;
   }
 }

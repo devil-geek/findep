@@ -116,12 +116,12 @@ class Calculator extends Component {
     });
   };
 
-  callMe = async (e) => {
+  callMe = async e => {
     await this.setState({
       callMe: true
-    })
-    this.handleSubmit(e)
-  }
+    });
+    this.handleSubmit(e);
+  };
 
   render() {
     const {
@@ -272,9 +272,9 @@ class Calculator extends Component {
                   <br />
                   <button
                     onClick={() => this.openModal("amortModal")}
-                    className="button is-white has-text-link is-size-7"
+                    className="button is-text has-text-link is-size-7"
                   >
-                    Tabla de amortización
+                    Consulta aquí la tabla de amortización
                   </button>
                 </div>
                 <br />
@@ -288,7 +288,10 @@ class Calculator extends Component {
                   </button>
                   <br />
                   <br />
-                  <button onClick={this.callMe} className="button is-text has-text-danger has-text-undeline is-size-7">
+                  <button
+                    onClick={this.callMe}
+                    className="button is-text has-text-danger is-size-7"
+                  >
                     O quiero que me hablen por teléfono
                   </button>
                 </div>

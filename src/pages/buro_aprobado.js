@@ -12,9 +12,9 @@ const BuroAprobado = ({ location }) => {
       <Steps isActive={2} />
       <section className="section">
         <div className="has-text-centered">
-          <h1 className="has-text-primary has-text-centered subtitle">
+          <h2 className="has-text-primary has-text-centered subtitle">
             ¡FELICIDADES!
-          </h1>
+          </h2>
           <img width="80px" src={icon} alt="aprobado" />
           <br />
           <br />

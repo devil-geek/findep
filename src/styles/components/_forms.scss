@@ -138,4 +138,19 @@
   .card-content.form {
     padding: 1.5rem 2rem;
   }
+  .form {
+    font-size: 1rem;
+    .label, .check-container {
+      font-size: 1rem;
+    }
+    small {
+      font-size: 0.8rem;
+    }
+    .help {
+      font-size: 0.85rem;
+    }
+    .input, .select{
+      font-size: 1.125rem !important;
+    }
+  }
 }

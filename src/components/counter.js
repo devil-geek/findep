@@ -47,7 +47,7 @@ class Counter extends Component {
             }}
           >
             <VisibilitySensor onChange={this.onVisibilityChange} delayedCall>
-              <h1 className="has-text-white has-text-centered subtitle">
+              <h2 className="has-text-white has-text-centered subtitle os">
                 ¡Más de{" "}
                 <strong className="has-text-white">
                   <CountUp
@@ -59,7 +59,7 @@ class Counter extends Component {
                   clientes satisfechos
                 </strong>{" "}
                 nos respaldan!
-              </h1>
+              </h2>
             </VisibilitySensor>
           </section>
         )}

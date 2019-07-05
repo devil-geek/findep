@@ -322,9 +322,9 @@ class Form1 extends Component {
       <div className="columns">
         <div className="column">
           <div className="card-content form">
-            <h1 className="has-text-success is-size-6 subtitle is-marginless">
+            <h2 className="has-text-success is-size-6 subtitle is-marginless">
               Datos personales
-            </h1>
+            </h2>
             <p className="is-size-7 has-text-grey-light">
               Queremos conocerte un poco más.
             </p>
@@ -610,9 +610,9 @@ class Form1 extends Component {
 
             <br />
 
-            <h1 className="has-text-success is-size-6 subtitle is-marginless">
+            <h2 className="has-text-success is-size-6 subtitle is-marginless">
               Datos de domicilio
-            </h1>
+            </h2>
             <p className="is-size-7 has-text-grey-light">
               Cuéntanos dónde vives para poder ayudarte a encontrar una oficina
               cercana.

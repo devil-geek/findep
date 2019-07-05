@@ -27,7 +27,7 @@ const Footer = () => (
     render={data => {
       return (
         <footer className="footer center has-background-white">
-          <h1 className="has-text-centered subtitle">GRUPO FINDEP</h1>
+          <h2 className="has-text-centered subtitle">GRUPO FINDEP</h2>
 
           <div className="columns">
             {data.allFile.edges.map(img => {
@@ -43,7 +43,7 @@ const Footer = () => (
           </div>
           <br />
 
-          <div className="has-text-centered is-size-7">
+          <div className="has-text-centered is-size-8">
             <p>
               <strong>
                 Financiera Independencia S.A.B. de C.V. SOFOM. E.N.R.

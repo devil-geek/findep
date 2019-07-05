@@ -12,7 +12,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 const Contact = () => {
   return (
     <section className="section contact container">
-      <h1 className="has-text-white has-text-centered subtitle">CONTÁCTANOS</h1>
+      <h2 className="has-text-white has-text-centered subtitle">CONTÁCTANOS</h2>
       <div className="columns">
         <div className="column is-5 is-offset-1">
           <div className="columns is-mobile">
@@ -28,10 +28,11 @@ const Contact = () => {
               <FaMapMarkerAlt size="1.2em" />
             </div>
             <div className="column">
-              Av. Nicolás Bravo No. 100 1er. y 3er. Piso Col. Centro, C.P. 5000
+              Prolongación Paseo de la Reforma 600 Int.420,
+              Col.Santa Fe Peña Blanca. 
               <br />
               <strong className="has-text-white">
-                Toluca, Estado de México
+                Alcaldía Álvaro Obregón, CDMX
               </strong>
             </div>
           </div>

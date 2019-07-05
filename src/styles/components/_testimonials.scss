@@ -51,3 +51,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+@include widescreen{
+  .testimonial{
+    &-text{
+      font-size: 1.125rem;
+    }
+    &-author{
+      font-size: .9rem;
+    }
+  }
+}

@@ -33,11 +33,11 @@ const Testimonial = data => {
           </figure>
           <div className="media-content">
             <div className="content">
-              <p className="is-italic">
+              <p className="testimonial-text">
                 {item.text}
                 <br />
                 <br />
-                <strong>{item.name}</strong>
+                <strong className="testimonial-author">{item.name}</strong>
                 <br />
               </p>
             </div>
@@ -93,9 +93,9 @@ const Testimonials = ({ data }) => {
   };
   return (
     <div className="testimonials">
-      <h1 className="has-text-primary has-text-centered subtitle">
+      <h2 className="has-text-primary has-text-centered subtitle">
         LO QUE OPINAN NUESTROS CLIENTES
-      </h1>
+      </h2>
       <Slider {...settings}>{Testimonial(data)}</Slider>
     </div>
   );

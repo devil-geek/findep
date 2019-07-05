@@ -4,8 +4,15 @@
   top: 0;
   left: 0;
   width: 100%;
+  -webkit-animation-name: closeMenu;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-name: closeMenu;
+  -moz-animation-duration: 0.5s;
+  -o-animation-name: closeMenu;
+  -o-animation-duration: 0.5s;
   animation-name: closeMenu;
   animation-duration: 0.5s;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.3);
   &-burger {
     background-color: $primary;
     height: 40px;
@@ -60,6 +67,12 @@
   }
   &.open {
     left: -200px;
+    -webkit-animation-name: openMenu;
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-name: openMenu;
+    -moz-animation-duration: 0.5s;
+    -o-animation-name: openMenu;
+    -o-animation-duration: 0.5s;
     animation-name: openMenu;
     animation-duration: 0.5s;
   }
@@ -116,11 +129,23 @@
 #main {
   transition: all 0.5s ease-in-out;
   position: relative;
+  -webkit-animation-name: closeMenu;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-name: closeMenu;
+  -moz-animation-duration: 0.5s;
+  -o-animation-name: closeMenu;
+  -o-animation-duration: 0.5s;
   animation-name: closeMenu;
   animation-duration: 0.5s;
 
   &.open {
     left: -200px;
+    -webkit-animation-name: openMenu;
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-name: openMenu;
+    -moz-animation-duration: 0.5s;
+    -o-animation-name: openMenu;
+    -o-animation-duration: 0.5s;
     animation-name: openMenu;
     animation-duration: 0.5s;
   }
@@ -144,13 +169,70 @@
   }
 }
 
+
+@-moz-keyframes openMenu {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200px;
+  }
+}
+
+@-moz-keyframes closeMenu {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+
+@-o-keyframes openMenu {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200px;
+  }
+}
+
+@-o-keyframes closeMenu {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+
+@keyframes openMenu {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200px;
+  }
+}
+
+@keyframes closeMenu {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
 @include widescreen{
   .navbar{
-    height: 70px;
+    height: 75px;
 
     &-item {
     & img {
-      max-height: 3.5rem;
+      max-height: 3rem;
     }
   }
   .logo {
@@ -160,6 +242,9 @@
     &-text {
       max-width: 180px;
     }
+  }
+  &-container{
+    padding: 0 1.5rem;
   }
   }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
-import logo from "../images/logo.png";
-import logoText from "../images/logo-text.png";
+import logo from "../images/logo-findep.svg";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const Toggle = (element, name) => {
@@ -36,11 +35,10 @@ const Navbar = props => (
       role="navigation"
       aria-label="main navigation"
     >
-      <div className="container">
+      <div className="container navbar-container">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
             <img src={logo} className="logo-img" alt="Logo-1" />
-            <img src={logoText} className="logo-text" alt="Logo-1" />
           </Link>
           {/*eslint-disable-next-line*/}
           <a

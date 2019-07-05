@@ -35,10 +35,10 @@ class IndexPage extends Component {
         >
           <Header />
         </VisibilitySensor>
-        <div className="columns is-centered">
+        <div className="columns is-centered is-marginless">
           <div className="column is-4-widescreen is-5-desktop is-6-tablet">
             <Calculator />
-            <div className="section is-size-7 is-pl-bottom">
+            <div className="section is-size-7 is-pl-bottom is-hidden-desktop">
               <p>
                 <strong>MICRONEGOCIO: CAT PROMEDIO: 176.6% Sin IVA. </strong>
                 <br />
@@ -61,6 +61,7 @@ class IndexPage extends Component {
                 *Sujeto a aprobación de crédito. Consulta términos, condiciones
                 de contratación, tasas de interés y comisiones en{" "}
                 <a
+                  className="  has-text-underlined"
                   href="https://www.independencia.com.mx"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -78,9 +79,9 @@ class IndexPage extends Component {
               delayedCall
             >
               <section className="section" id="como_funciona">
-                <h1 className="has-text-primary has-text-centered subtitle">
+                <h2 className="has-text-primary has-text-centered subtitle">
                   ¿CÓMO FUNCIONA?
-                </h1>
+                </h2>
                 <div className="columns is-mobile">
                   <div className="column is-1 list-container">
                     <div className="list-num">1</div>
@@ -123,6 +124,43 @@ class IndexPage extends Component {
           </div>
         </div>
 
+        <div className="columns is-centered is-hidden-touch">
+          <div className="column is-narrow">
+            <div className="section is-size-7 is-pl-bottom">
+              <p>
+                <strong>MICRONEGOCIO: CAT PROMEDIO: 176.6% Sin IVA. </strong>
+                <br />
+                Para fines informativos y de comparación. Tasa de Interés Anual
+                Fija Máxima: 114.8% Plazo Mínimo: 26 semanas Plaza Máximo: 78
+                semanas.
+              </p>
+              <br />
+              <p>
+                <strong>
+                  CREDIINMEDIATO SIMPLE: CAT PROMEDIO: 164.6% Sin IVA.{" "}
+                </strong>
+                <br />
+                Para fines informativos y de comparación. Tasa de Interés Anual
+                Fija Máxima: 114.6% Plazo Mínimo: 12 quincenas Plaza Máximo: 48
+                quincenas.
+              </p>
+              <br />
+              <p>
+                *Sujeto a aprobación de crédito. Consulta términos, condiciones
+                de contratación, tasas de interés y comisiones en{" "}
+                <a
+                  className="has-text-underlined"
+                  href="https://www.independencia.com.mx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  www.independencia.com.mx
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="columns is-gapless">
           <div className="column is-8">
             <VisibilitySensor
@@ -132,9 +170,9 @@ class IndexPage extends Component {
               delayedCall
             >
               <section className="section empresa" id="nuestra_empresa">
-                <h1 className="has-text-primary has-text-centered subtitle">
+                <h2 className="has-text-primary has-text-centered subtitle">
                   NUESTRA EMPRESA
-                </h1>
+                </h2>
                 <p className="is-size-6">
                   A lo largo de nuestra historia nos hemos consolidado como una
                   de las principales empresas de préstamos en México, gracias a
@@ -174,9 +212,7 @@ class IndexPage extends Component {
               </AnchorLink>
             </div>
           </div>
-          
         </section>
-
       </Layout>
     );
   }
