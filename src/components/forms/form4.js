@@ -17,16 +17,72 @@ class Form4 extends Component {
     };
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-    navigate("/datos_de_tu_ocupacion", {
-      state: {
-        ...this.state,
-        amount: this.props.location.amount,
-        pay: this.props.location.pay
-      }
+  componentWillMount() {
+    if (!this.props.location) {
+      navigate("/");
+      return;
+    }
+    this.request = this.props.location.request;
+  }
+  
+  handleInputChange = async event => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const iname = target.name;
+
+    await this.setState({
+      [iname]: value
     });
+  };
+
+  handleSubmit = async e => {
+    await this.makeRequest();
+    console.log(this.request);
+    navigate("/gracias");
+  };
+
+  makeRequest = async () => {
+    const {
+      occupation,
+      fuente,
+      ingreso,
+      antiguedad,
+      antiguedadDom,
+      empresa,
+      telEmpresa,
+      gastos,
+      dependientes
+    } = this.state;
+
+    this.request = {
+      ...this.request,
+      datosEmpleo: {
+        ocupacion: occupation,
+        fuentesIngreso: fuente,
+        ingresoMensual: ingreso,
+        datosEmpresa: {
+          antiguedad: antiguedad,
+          nombre: empresa,
+          telefono: telEmpresa
+        }
+      },
+      gastosFamiliares: gastos,
+      dependientesEconomicos: dependientes,
+      domicilio: [
+        {
+          ...this.request.domicilio[0],
+          antiguedad: antiguedadDom
+        }
+      ]
+    };
+
+    const api = process.env.GATSBY_API;
+    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
+
+    /* const res = await Axios.post(api + url, this.request);
+    if (res.data.status !== undefined) {
+      console.log(res.data);
+    } */
   };
 
   render() {

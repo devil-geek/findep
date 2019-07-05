@@ -1,26 +1,36 @@
 import React, { Component } from "react";
 import { navigate } from "gatsby";
+import states from "./states.json";
 
 class Form3 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       country: "mx",
-      state: "",
-      city: "",
+      born_state: "",
+      born_city: "",
       telDom: "",
       civil: ""
     };
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
+  componentWillMount() {
+    if (!this.props.location) {
+      navigate("/");
+      return;
+    }
+    this.request = this.props.location.request;
+  }
+
+  handleSubmit = async e => {
+    await this.makeRequest();
+    console.log(this.request);
     navigate("/datos_de_tu_ocupacion", {
       state: {
         ...this.state,
         amount: this.props.location.amount,
-        pay: this.props.location.pay
+        pay: this.props.location.pay,
+        request: this.request
       }
     });
   };
@@ -35,8 +45,33 @@ class Form3 extends Component {
     });
   };
 
+  makeRequest = async () => {
+    const { born_city, born_state, civil, telDom } = this.state;
+
+    this.request = {
+      ...this.request,
+      nacimiento: {
+        estado: born_state.toUpperCase(),
+        municipio: born_city.toUpperCase()
+      },
+      estadoCivil: civil.toUpperCase(),
+      telefono: this.request.telefono.push({
+        numeroTelefono: telDom,
+        tipoTelefon: "FIJO"
+      })
+    };
+
+    const api = process.env.GATSBY_API;
+    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cuatro";
+
+    /* const res = await Axios.post(api + url, this.request);
+    if (res.data.status !== undefined) {
+      console.log(res.data);
+    } */
+  };
+
   render() {
-    const { country, state, city, telDom, civil } = this.state;
+    const { country, born_state, born_city, telDom, civil } = this.state;
     return (
       <div className="columns">
         <div className="column">
@@ -66,20 +101,26 @@ class Form3 extends Component {
               </div>
               <div className="column is-6 is-12-mobile">
                 <div className="field">
-                  <label className="label" htmlFor="col">
+                  <label className="label" htmlFor="born_state">
                     *Estado
                   </label>
                   <div className="control is-expanded">
                     <div className="select is-fullwidth">
                       <select
-                        name="state"
-                        id="state"
-                        value={state}
+                        name="born_state"
+                        id="born_state"
+                        value={born_state}
                         required
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona un estado</option>
-                        <option value="cdmx">CDMX</option>
+                        {states.map(item => {
+                          return (
+                            <option key={item.id} value={item.name}>
+                              {item.name}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
                   </div>
@@ -87,21 +128,20 @@ class Form3 extends Component {
               </div>
               <div className="column is-6 is-12-mobile">
                 <div className="field">
-                  <label className="label" htmlFor="col">
+                  <label className="label" htmlFor="born_city">
                     *Ciudad
                   </label>
                   <div className="control is-expanded">
-                    <div className="select is-fullwidth">
-                      <select
-                        name="city"
-                        id="city"
-                        value={city}
-                        required
-                        onChange={this.handleInputChange}
-                      >
-                        <option value="">Selecciona una ciudad</option>
-                      </select>
-                    </div>
+                    <input
+                      className="input"
+                      type="text"
+                      name="born_city"
+                      id="born_city"
+                      placeholder="Ciudad de nacimiento"
+                      required
+                      onChange={this.handleInputChange}
+                      value={born_city}
+                    />
                   </div>
                 </div>
               </div>

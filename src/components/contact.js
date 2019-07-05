@@ -49,6 +49,7 @@ const Contact = () => {
         </div>
         <div className="column is-3 is-offset-3 has-text-centered">
           <a
+            aria-label="Instagram"
             href="https://www.instagram.com/financieraindependenciaoficial/?hl=es-la"
             target="_blank"
             rel="noopener noreferrer"
@@ -57,6 +58,7 @@ const Contact = () => {
             <FaInstagram size="1.3em" />
           </a>
           <a
+            aria-label="facebook"
             href="https://www.facebook.com/Financiera.Indep/"
             target="_blank"
             rel="noopener noreferrer"
@@ -65,6 +67,7 @@ const Contact = () => {
             <FaFacebookF size="1.3em" />
           </a>
           <a
+            aria-label="Youtube"
             href="https://www.youtube.com/channel/UCeIISxyPtdmouQatpSWIRMw?view_as=subscriber"
             target="_blank"
             rel="noopener noreferrer"

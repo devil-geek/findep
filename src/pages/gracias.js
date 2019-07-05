@@ -8,7 +8,7 @@ import { FacebookShareButton, FacebookIcon } from "react-share";
 const shareUrl = "https://www.independencia.com.mx/";
 const title = "Financiera Independencia";
 
-const Finish = () => (
+const Gracias = () => (
   <StaticQuery
     query={graphql`
       query {
@@ -80,4 +80,4 @@ const Finish = () => (
   />
 );
 
-export default Finish;
+export default Gracias;

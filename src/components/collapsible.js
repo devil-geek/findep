@@ -33,7 +33,7 @@ class Collapsible extends Component {
           sin duda, nos ha identificado y nos compromete a ser mejores cada día.
         </div>
         <button
-          className="button btn-round has-shadow"
+          className="button btn-round has-shadow is-hidden-tablet"
           aria-label="mostrar"
           onClick={this.Toggle}
         >

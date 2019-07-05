@@ -7,8 +7,6 @@ import Counter from "../components/counter";
 import Layout from "../components/layout";
 import Collapsible from "../components/collapsible";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import Contact from "../components/contact";
-import Footer from "../components/footer";
 import Calculator from "../components/calculator";
 import Testimonials from "../components/testimonials";
 
@@ -184,9 +182,6 @@ class IndexPage extends Component {
           </div>
         </section>
 
-        <Contact />
-
-        <Footer />
       </Layout>
     );
   }

@@ -1,0 +1,76 @@
+{
+  "folio": 0,
+  "idMedio": "3",
+  "url": "",
+  "sucursal": 0,
+  "persona": 0,
+  "nombre": "",
+  "segundoNombre": "",
+  "apellidoPaterno": "",
+  "apellidoMaterno": "",
+  "fechaNacimiento": "",
+  "genero": "",
+  "nacionalidad": "MEXICANA",
+  "pais": "MÈXICO",
+  "nacimiento": {
+    "estado": "",
+    "municipio": ""
+  },
+  "estadoCivil": "",
+  "correoElectronico": "",
+  "telefono": [
+    {
+      "numeroTelefono": "",
+      "tipoTelefono": ""
+    },
+    {
+      "numeroTelefono": "",
+      "tipoTelefono": "FIJO"
+    }
+  ],
+  "datosCredito": {
+    "condicionesAef": false,
+    "condicionesFisa": true,
+    "dedicacion": "",
+    "idEmpresa": "1",
+    "monto": "",
+    "periodo": "",
+    "plazo": ""
+  },
+  "domicilio": [
+    {
+      "calle": "",
+      "numeroExterior": "",
+      "numeroInterior": "",
+      "colonia": "",
+      "cp": "",
+      "municipio": "",
+      "estado": "",
+      "antiguedad": ""
+    }
+  ],
+  "datosBuro": {
+    "tarjetaCredito": "",
+    "numeroTarjetaCredito": "",
+    "hipotecarioCredito": "",
+    "automotrizCredito": "",
+    "autorizacion": "",
+    "consultaBuro": ""
+  },
+  "datosEmpleo": {
+    "ocupacion": "",
+    "fuentesIngreso": "",
+    "ingresoMensual": 0,
+    "datosEmpresa": {
+      "antiguedad": "",
+      "nombre": "",
+      "telefono": ""
+    }
+  },
+  "gastosFamiliares": 0,
+  "dependientesEconomicos": 0,
+  "rfc": "",
+  "token": null,
+  "cobertura": 0,
+  "estatus": ""
+}

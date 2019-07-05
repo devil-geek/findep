@@ -4,6 +4,7 @@ import { navigate } from "gatsby";
 import moment from "moment";
 import Axios from "axios";
 import { FaMapMarkedAlt } from "react-icons/fa";
+import req from "./request.json";
 
 class Form1 extends Component {
   constructor(props) {
@@ -29,8 +30,20 @@ class Form1 extends Component {
       noe: "",
       noi: "",
       col: "",
-      nac: ""
+      nac: "",
+      noCoverModal: "",
+      del: "",
+      city: ""
     };
+
+    this.request = req;
+  }
+
+  componentWillMount() {
+    if (!this.props.location) {
+      navigate("/");
+      return
+    }
   }
 
   handleInputChange = async event => {
@@ -52,16 +65,34 @@ class Form1 extends Component {
     ) {
       this.getRFC();
     }
+    if (iname === "cp") {
+      this.setState({
+        col: "",
+        city: "",
+        del: ""
+      });
+      this.getCover();
+    }
+
+    if (iname === "col") {
+      const col = this.state.cover.find(item => item.asentamiento === value);
+      this.setState({
+        col: col.asentamiento,
+        city: col.estado,
+        del: col.municipio
+      });
+    }
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
+  handleSubmit = async e => {
+    await this.makeRequest()
+    console.log(this.request)
     navigate("/preguntas_de_verificacion", {
       state: {
         ...this.state,
         amount: this.props.location.amount,
-        pay: this.props.location.pay
+        pay: this.props.location.pay,
+        request: this.request
       }
     });
   };
@@ -100,28 +131,22 @@ class Form1 extends Component {
     let errorDate = "";
 
     if (isNaN(value)) {
-      console.log("Error format");
       errorDate = "Ingrese una fecha válida";
     }
     if (dd) {
       if (dd < 1 || dd > 31) {
-        console.log("error dd");
-
         errorDate = "Ingrese día válido";
       }
     }
 
     if (mm) {
       if (mm < 1 || mm > 12) {
-        console.log("error mm");
         errorDate = "Ingrese mes válido";
       }
     }
 
     if (yy) {
-      console.log(moment().year());
       if (yy < moment().year() - 68 || yy > 1998) {
-        console.log("error yy");
         errorDate = "Ingrese año válido";
       }
     }
@@ -166,6 +191,103 @@ class Form1 extends Component {
     }
   };
 
+  getCover = async e => {
+    const api = process.env.GATSBY_API;
+    const colUrl = process.env.GATSBY_COL;
+    const coverUrl = process.env.GATSBY_FISA_COVER;
+    const { cp } = this.state;
+
+    if (cp.length === 5) {
+      const res = await Axios.get(api + coverUrl + `?cp=${cp}`);
+      if (res && res.data && res.data.payload.length > 0) {
+        const cols = await Axios.get(api + colUrl + `?cp=${cp}`);
+
+        this.setState({
+          cover: cols.data,
+          sucursales: res.data.payload
+        });
+      } else {
+        this.openModal("noCover");
+      }
+    }
+  };
+
+  makeRequest = async () => {
+    const { amount, occupation, period, term, callMe } = this.props.location;
+    const {
+      name,
+      sname,
+      lastp,
+      lastm,
+      email,
+      dd,
+      yy,
+      mm,
+      gen,
+      rfc,
+      col,
+      street,
+      noe,
+      noi,
+      tel,
+      cp,
+      city,
+      del
+    } = this.state;
+    this.request = {
+      ...this.request,
+      datosCredito: {
+        ...this.request.datosCredito,
+        monto: amount,
+        periodo: period,
+        plazo: term,
+        dedicacion: occupation
+      },
+      nombre: name.toUpperCase(),
+      segundoNombre: sname.toUpperCase(),
+      apellidoPaterno: lastp.toUpperCase(),
+      apellidoMaterno: lastm.toUpperCase(),
+      correoElectronico: email.toUpperCase(),
+      fechaNacimiento: moment(new Date(`${mm} ${dd} ${yy}`)).format(
+        "DD/MM/YYYY"
+      ),
+      genero: gen.toUpperCase(),
+      rfc: rfc.toUpperCase(),
+      domicilio: [
+        {
+          calle: street.toUpperCase(),
+          colonia: col.toUpperCase(),
+          cp: cp,
+          numeroExterior: noe,
+          numeroInterior: noi,
+          estado: city.toUpperCase(),
+          municipio: del.toUpperCase()
+        }
+      ],
+      telefono: [
+        {
+          numeroTelefono: tel,
+          tipoTelefono: "M"
+        }
+      ],
+      datosBuro: null
+    };
+
+    const api = process.env.GATSBY_API;
+    let url = process.env.GATSBY_FISA_ENDPOINT;
+
+    if (callMe) {
+      url += "?paso=uno";
+    } else {
+      url += "?paso=dos";
+    }
+
+    /* const res = await Axios.post(api + url, this.request)
+    if (res.data.status !== undefined) {
+      console.log(res.data)
+    } */
+  };
+
   render() {
     const {
       name,
@@ -187,9 +309,14 @@ class Form1 extends Component {
       privacyModal,
       termsModal,
       countryModal,
+      noCoverModal,
       terms,
       privacy,
-      errorDate
+      errorDate,
+      del,
+      city,
+      cover,
+      gen
     } = this.state;
     return (
       <div className="columns">
@@ -419,7 +546,7 @@ class Form1 extends Component {
                       required
                       onChange={this.handleInputChange}
                       value={tel}
-                      disabled={!rfc}
+                      disabled={!gen}
                     />
                   </div>
                 </div>
@@ -504,6 +631,7 @@ class Form1 extends Component {
                       type="text"
                       name="cp"
                       id="cp"
+                      maxLength="5"
                       placeholder="Escribe aquí el código de 5 dígitos"
                       required
                       onChange={this.handleInputChange}
@@ -526,12 +654,20 @@ class Form1 extends Component {
                         required
                         onChange={this.handleInputChange}
                         value={col}
-                        disabled={!cp}
+                        disabled={!cp || !cover}
                       >
                         <option value="">Selecciona una colonia</option>
-                        <option value="12">12 Quincenas</option>
-                        <option value="24">24 Quincenas</option>
-                        <option value="36">36 Quincenas</option>
+                        {cover &&
+                          cover.map(item => {
+                            return (
+                              <option
+                                key={item.asentamiento + item.oficina}
+                                value={item.asentamiento}
+                              >
+                                {item.asentamiento}
+                              </option>
+                            );
+                          })}
                       </select>
                     </div>
                   </div>
@@ -552,6 +688,7 @@ class Form1 extends Component {
                       type="text"
                       name="del"
                       id="del"
+                      value={del}
                       disabled
                     />
                   </div>
@@ -568,6 +705,7 @@ class Form1 extends Component {
                       type="text"
                       name="city"
                       id="city"
+                      value={city}
                       disabled
                     />
                   </div>
@@ -684,26 +822,15 @@ class Form1 extends Component {
             </div>
             <br />
             <div className="has-text-centered">
-              {this.props.location &&
-                !this.props.location.callMe && (
-                  <button
-                    disabled={!privacy || !terms}
-                    onClick={this.handleSubmit}
-                    className="button is-success btn-block has-text-weight-bold"
-                  >
-                    Registrarme y continuar
-                  </button>
-                )}
-              {this.props.location &&
-                this.props.location.callMe && (
-                  <button
-                    disabled={!privacy || !terms}
-                    onClick={this.handleSubmit}
-                    className="button is-success btn-block has-text-weight-bold"
-                  >
-                    Enviar y terminar
-                  </button>
-                )}
+              <button
+                disabled={!privacy || !terms}
+                onClick={this.handleSubmit}
+                className="button is-success btn-block has-text-weight-bold"
+              >
+                {this.props.location && this.props.location.callMe
+                  ? "Enviar y terminar"
+                  : "Registrarme y continuar"}
+              </button>
             </div>
             <Modal
               modal={termsModal}
@@ -736,6 +863,47 @@ class Form1 extends Component {
               <br />
               Para poder obtener un préstamo con nosotros es indispensable ser
               mexicano.
+              <br />
+              <br />
+              <strong>De antemano, agradecemos tu preferencia.</strong>
+            </Modal>
+
+            <Modal
+              modal={noCoverModal}
+              close={() => this.closeModal("noCoverModal")}
+              title="¡LO SENTIMOS!"
+              accept={() => {
+                navigate("/");
+              }}
+              acceptText="Cerrar y cancelar la solicitud"
+            >
+              <div className="has-text-centered has-text-primary">
+                <FaMapMarkedAlt size="3rem" />
+              </div>
+              <br />
+              Por el momento{" "}
+              <strong>no contamos con cobertura en tu residencia.</strong>
+              <br />
+              Sin importar dónde estés y porque eres importante para nosotros,
+              el dinero que necesites te lo damos en nuestra empresa hermana
+              <strong className="has-text-warning"> Apoyo Económico</strong>.
+              <br />
+              <br />
+              <div className="field">
+                <label className="check-container">
+                  Acepto el aviso de privacidad
+                  <br />
+                  <input
+                    type="checkbox"
+                    name="privacy"
+                    required
+                    checked={privacy}
+                    onChange={this.handleInputChange}
+                    disabled={!noe}
+                  />
+                  <span className="checkmark checkbox" />
+                </label>
+              </div>
               <br />
               <br />
               <strong>De antemano, agradecemos tu preferencia.</strong>

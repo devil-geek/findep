@@ -3,6 +3,7 @@ import Steps from "../components/steps";
 import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import icon from "../images/iconos/icono-ok.svg";
+import { navigate } from 'gatsby'
 
 const BuroAprobado = ({ location }) => {
   return (
@@ -31,7 +32,7 @@ const BuroAprobado = ({ location }) => {
             *Sujeto a evaluación y aprobación de crédito.
           </p>
           <br />
-          <button className="button is-success btn-block has-text-weight-bold">
+          <button onClick={() => { navigate("/datos_adicionales",{ state: location.state }) }} className="button is-success btn-block has-text-weight-bold">
             Continuar
           </button>
         </div>

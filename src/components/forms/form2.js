@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { navigate } from "gatsby";
+import Axios from "axios";
 
 class Form2 extends Component {
   constructor(props) {
@@ -10,18 +11,49 @@ class Form2 extends Component {
       hipotecarioCredito: "",
       automotrizCredito: "",
       tarjetaCredito: "",
-      ccNumber: ""
+      ccNumber: "",
+      cover: []
     };
+
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-    navigate("/datos_adicionales", {
+  componentWillMount() {
+    if (!this.props.location) {
+      navigate("/");
+      return;
+    }
+    this.request = this.props.location.request;
+    this.getOffices();
+  }
+
+  getOffices = async () => {
+    const api = process.env.GATSBY_API;
+    const sucUrl = process.env.GATSBY_SUC;
+    const { location } = this.props;
+    const offices = location.sucursales.filter(
+      i => i.asentamiento === location.col
+    );
+
+    for (let index = 0; index < offices.length; index++) {
+      const element = offices[index];
+      const res = await Axios.get(api + sucUrl + `?oficina=${element.oficina}`);
+      element.ubicacion = res.data.payload[0];
+    }
+
+    this.setState({
+      cover: offices
+    });
+  };
+
+  handleSubmit = async e => {
+    await this.makeRequest()
+    console.log(this.request)
+    navigate("/buro_aprobado", {
       state: {
         ...this.state,
         amount: this.props.location.amount,
-        pay: this.props.location.pay
+        pay: this.props.location.pay,
+        request: this.request
       }
     });
   };
@@ -34,10 +66,50 @@ class Form2 extends Component {
     await this.setState({
       [iname]: value
     });
+
+    if (iname === "suc") {
+      const { cover } = this.state;
+
+      const sucInfo = cover.filter(item => item.oficina === Number(value))[0];
+
+      this.setState({
+        sucInfo
+      });
+    }
+  };
+
+  makeRequest = async () => {
+    const {
+      buro,
+      hipotecarioCredito,
+      automotrizCredito,
+      tarjetaCredito,
+      ccNumber
+    } = this.state;
+
+    this.request = {
+      ...this.request,
+      datosBuro: {
+        consultaBuro: "S",
+        tarjetaCredito: tarjetaCredito,
+        numeroTarjetaCredito: ccNumber,
+        hipotecarioCredito: hipotecarioCredito,
+        automotrizCredito: automotrizCredito,
+        autorizacion: buro
+      }
+    };
+
+    const api = process.env.GATSBY_API;
+    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=tres";
+
+    /* const res = await Axios.post(api + url, this.request);
+    if (res.data.status !== undefined) {
+      console.log(res.data);
+    } */
   };
 
   render() {
-    const { tarjetaCredito, buro, ccNumber } = this.state;
+    const { tarjetaCredito, buro, ccNumber, cover, sucInfo } = this.state;
     return (
       <div className="columns">
         <div className="column">
@@ -225,18 +297,37 @@ class Form2 extends Component {
                   <div className="control is-expanded">
                     <div className="select is-fullwidth">
                       <select
-                        name="col"
-                        id="col"
+                        name="suc"
+                        id="suc"
                         required
                         onChange={this.handleInputChange}
                       >
-                        <option value="">Selecciona una colonia</option>
-                        <option value="12">12 Quincenas</option>
-                        <option value="24">24 Quincenas</option>
-                        <option value="36">36 Quincenas</option>
+                        <option value="">Selecciona una sucursal</option>
+                        {cover &&
+                          cover.map(item => {
+                            return (
+                              <option
+                                key={item.ubicacion.nombre}
+                                value={item.oficina}
+                              >
+                                {item.ubicacion.nombre}
+                              </option>
+                            );
+                          })}
                       </select>
                     </div>
                   </div>
+                  {sucInfo && (
+                    <p className="help has-text-centered is-size-7">
+                      <strong>Dirección:</strong>
+                      <br />
+                      {sucInfo.ubicacion.calle}, Col.{" "}
+                      {sucInfo.ubicacion.colonia}
+                      <br />
+                      C.P. {sucInfo.ubicacion.cp}, {sucInfo.municipio},{" "}
+                      {sucInfo.estado}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
