@@ -5,6 +5,7 @@ import moment from "moment";
 import Axios from "axios";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import req from "./request.json";
+import Terms from "../terms";
 
 class Form1 extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class Form1 extends Component {
   componentDidMount() {
     if (!this.props.location) {
       navigate("/");
-      return
+      return;
     }
   }
 
@@ -85,8 +86,12 @@ class Form1 extends Component {
   };
 
   handleSubmit = async e => {
-    await this.makeRequest()
-    console.log(this.request)
+    await this.makeRequest();
+    console.log(this.request);
+    const { callMe } = this.props.location;
+    if (callMe) {
+      navigate("/gracias");
+    }
     navigate("/preguntas_de_verificacion", {
       state: {
         ...this.state,
@@ -213,7 +218,7 @@ class Form1 extends Component {
   };
 
   makeRequest = async () => {
-    const { amount, occupation, period, term, callMe } = this.props.location;
+    const { monto, occupation, period, term, callMe } = this.props.location;
     const {
       name,
       sname,
@@ -238,7 +243,7 @@ class Form1 extends Component {
       ...this.request,
       datosCredito: {
         ...this.request.datosCredito,
-        monto: amount,
+        monto,
         periodo: period,
         plazo: term,
         dedicacion: occupation
@@ -282,10 +287,10 @@ class Form1 extends Component {
       url += "?paso=dos";
     }
 
-    /* const res = await Axios.post(api + url, this.request)
+    const res = await Axios.post(api + url, this.request);
     if (res.data.status !== undefined) {
-      console.log(res.data)
-    } */
+      console.log(res.data);
+    }
   };
 
   render() {
@@ -488,7 +493,7 @@ class Form1 extends Component {
                         <input
                           type="radio"
                           name="gen"
-                          value="masculino"
+                          value="M"
                           required
                           onChange={this.handleInputChange}
                           disabled={!dd || !mm || !yy}
@@ -502,7 +507,7 @@ class Form1 extends Component {
                         <input
                           type="radio"
                           name="gen"
-                          value="femenino"
+                          value="F"
                           required
                           onChange={this.handleInputChange}
                           disabled={!dd || !mm || !yy}
@@ -835,10 +840,10 @@ class Form1 extends Component {
             <Modal
               modal={termsModal}
               close={() => this.closeModal("termsModal")}
-              title="Términos y condiciones"
+              title="Términos y condiciones de uso y privacidad"
               accept={() => this.accept("terms")}
             >
-              términos y condiciones
+              <Terms />
             </Modal>
             <Modal
               modal={privacyModal}

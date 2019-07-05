@@ -6,10 +6,6 @@ const monto = {
   MICRONEGOCIO: {
     min: 2500,
     max: 15000
-  },
-  AUTOEMPLEO: {
-    min: 2500,
-    max: 15000
   }
 };
 
@@ -36,18 +32,6 @@ const plazo = {
       min: 3501,
       max: 35000,
       plazos: [12, 24, 36, 48]
-    }
-  },
-  M: {
-    short: {
-      min: 3000,
-      max: 3500,
-      plazos: [6, 12]
-    },
-    long: {
-      min: 3501,
-      max: 35000,
-      plazos: [6, 12, 18, 24]
     }
   }
 };

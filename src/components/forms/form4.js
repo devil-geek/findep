@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { navigate } from "gatsby";
+import Axios from "axios";
 
 class Form4 extends Component {
   constructor(props) {
@@ -79,10 +80,10 @@ class Form4 extends Component {
     const api = process.env.GATSBY_API;
     let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
 
-    /* const res = await Axios.post(api + url, this.request);
+    const res = await Axios.post(api + url, this.request);
     if (res.data.status !== undefined) {
       console.log(res.data);
-    } */
+    }
   };
 
   render() {

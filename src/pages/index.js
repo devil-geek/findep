@@ -26,6 +26,7 @@ class IndexPage extends Component {
   };
 
   render() {
+    console.log(window.location.pathname);
     return (
       <Layout>
         <Navbar active={this.state.active} />

@@ -1,17 +1,24 @@
-body{
-  font-family: 'Open Sans', sans-serif;
+body {
+  font-family: "Open Sans", sans-serif;
   background: #fff;
 }
 
-h1,h2,h3,h4,h5{
-  font-family: 'Montserrat', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Montserrat", sans-serif;
 }
 
-@include widescreen{
-  .is-size-7{
-     font-size: 0.9rem !important;
+@include widescreen {
+  .is-size-7 {
+    font-size: 0.9rem !important;
   }
-  .subtitle{
+  .subtitle {
     font-size: 1.5rem;
+  }
+  .modal-card {
+    width: 800px;
   }
 }

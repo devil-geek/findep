@@ -4,6 +4,7 @@ import { navigate } from "gatsby";
 import axios from "axios";
 import Modal from "./modal";
 import Amortization from "./amortization";
+import rules from "./fisa";
 
 class Calculator extends Component {
   constructor(props) {
@@ -31,14 +32,17 @@ class Calculator extends Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-
+    const { occupation } = this.state;
     await this.setState({
       [name]: value,
       amountValid: true
     });
 
     if (name === "amount") {
-      if (Number(value) > 18500 || Number(value) < 5000) {
+      if (
+        Number(value) > rules.monto[occupation].max ||
+        Number(value) < rules.monto[occupation].min
+      ) {
         await this.setState({
           amountValid: false
         });
@@ -111,7 +115,8 @@ class Calculator extends Component {
     navigate("/datos_personales", {
       state: {
         ...this.state,
-        amount: this.numberWithCommas(parseFloat(this.state.amount).toFixed(2))
+        amount: this.numberWithCommas(parseFloat(this.state.amount).toFixed(2)),
+        monto: parseFloat(this.state.amount)
       }
     });
   };
@@ -123,6 +128,31 @@ class Calculator extends Component {
     this.handleSubmit(e);
   };
 
+  getOptions = () => {
+    const { period, amount } = this.state;
+    let plazos =
+      amount > rules.plazo[period].short.max
+        ? rules.plazo[period].long.plazos
+        : rules.plazo[period].short.plazos;
+    return plazos.map(item => {
+      return (
+        <option key={item} value={item}>
+          {item} {this.getPeriodName(period)}
+        </option>
+      );
+    });
+  };
+
+  getPeriodName = p => {
+    switch (p) {
+      case "S":
+        return "Semanas";
+      case "Q":
+        return "Quincenas";
+      default:
+        return "";
+    }
+  };
   render() {
     const {
       amount,
@@ -171,7 +201,14 @@ class Calculator extends Component {
               <label className="label" htmlFor="amount">
                 ¿Cuánto necesitas?
                 <br />
-                <small>De $5,000 a $18,500</small>
+                <small>
+                  {occupation !== ""
+                    ? "De $" +
+                      rules.monto[occupation].min +
+                      " a $" +
+                      rules.monto[occupation].max
+                    : ""}
+                </small>
               </label>
               <div className="control">
                 <input
@@ -179,8 +216,8 @@ class Calculator extends Component {
                   type="number"
                   name="amount"
                   id="amount"
-                  min={5000}
-                  max={18500}
+                  min={occupation ? rules.monto[occupation].min : 2500}
+                  max={occupation ? rules.monto[occupation].max : 35000}
                   placeholder="$5,000"
                   value={amount}
                   onChange={this.handleInputChange}
@@ -190,7 +227,8 @@ class Calculator extends Component {
               </div>
               {!amountValid && (
                 <p className="help is-danger">
-                  La cantidad debe ser de $5,000 a $18,500.
+                  La cantidad debe ser de ${rules.monto[occupation].min} a $
+                  {rules.monto[occupation].max}.
                 </p>
               )}
             </div>
@@ -202,32 +240,36 @@ class Calculator extends Component {
                 <small>Escoge un periodo de pago</small>
               </label>
               <div className="columns is-mobile is-gapless-mobile">
-                <div className="column is-pl-right is-6">
-                  <label className="check-container">
-                    Semanalmente
-                    <input
-                      type="radio"
-                      name="period"
-                      value="S"
-                      onChange={this.handleInputChange}
-                      disabled={!amount}
-                    />
-                    <span className="checkmark" />
-                  </label>
-                </div>
-                <div className="column is-pl-left is-pl-right">
-                  <label className="check-container">
-                    Quincenalmente
-                    <input
-                      type="radio"
-                      name="period"
-                      value="Q"
-                      onChange={this.handleInputChange}
-                      disabled={!amount}
-                    />
-                    <span className="checkmark" />
-                  </label>
-                </div>
+                {occupation !== "FORMAL" && (
+                  <div className="column is-pl-right is-6">
+                    <label className="check-container">
+                      Semanalmente
+                      <input
+                        type="radio"
+                        name="period"
+                        value="S"
+                        onChange={this.handleInputChange}
+                        disabled={!amount}
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </div>
+                )}
+                {occupation !== "MICRONEGOCIO" && (
+                  <div className="column is-pl-right">
+                    <label className="check-container">
+                      Quincenalmente
+                      <input
+                        type="radio"
+                        name="period"
+                        value="Q"
+                        onChange={this.handleInputChange}
+                        disabled={!amount}
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -246,12 +288,7 @@ class Calculator extends Component {
                     disabled={!period}
                   >
                     <option value="">Selecciona un plazo</option>
-                    {period === "Q" && <option value="12">12 Quincenas</option>}
-                    {period === "Q" && <option value="24">24 Quincenas</option>}
-                    {period === "Q" && <option value="36">36 Quincenas</option>}
-                    {period === "S" && <option value="12">12 Semanas</option>}
-                    {period === "S" && <option value="24">24 Semanas</option>}
-                    {period === "S" && <option value="36">36 Semanas</option>}
+                    {period && this.getOptions()}
                   </select>
                 </div>
               </div>
