@@ -5,7 +5,6 @@ import Header from "../components/header";
 import Navbar from "../components/navbar";
 import Counter from "../components/counter";
 import Layout from "../components/layout";
-import Collapsible from "../components/collapsible";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import Calculator from "../components/calculator";
 import Testimonials from "../components/testimonials";
@@ -175,11 +174,7 @@ class IndexPage extends Component {
               </AnchorLink>
             </div>
           </div>
-          <div className="columns is-centered">
-            <div className="column is-10">
-              <Collapsible />
-            </div>
-          </div>
+          
         </section>
 
       </Layout>

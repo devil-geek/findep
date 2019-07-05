@@ -39,7 +39,7 @@ class Form1 extends Component {
     this.request = req;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.location) {
       navigate("/");
       return

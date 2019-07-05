@@ -17,14 +17,14 @@ class Form4 extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.location) {
       navigate("/");
       return;
     }
     this.request = this.props.location.request;
   }
-  
+
   handleInputChange = async event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;

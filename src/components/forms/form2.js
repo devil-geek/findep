@@ -17,7 +17,7 @@ class Form2 extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.location) {
       navigate("/");
       return;
