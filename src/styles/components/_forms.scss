@@ -122,6 +122,12 @@
   border-color: #767779;
 }
 
+input[pattern]:invalid{
+  color:$primary;
+  border: $primary solid 2px;
+} 
+
+
 @include tablet {
   .calculate {
     margin-top: -150px;

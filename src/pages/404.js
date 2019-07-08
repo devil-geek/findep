@@ -1,11 +1,9 @@
 import React from "react";
 import Layout from "../components/layout";
-import Navbar from "../components/navbar";
 import icon from "../images/iconos/icono-sad.svg";
 
-const NotFoundPage = () => (
-  <Layout>
-    <Navbar />
+const NotFoundPage = ({ location }) => (
+  <Layout location={location}>
     <section className="section">
       <div className="has-text-centered">
         <h2 className="has-text-primary has-text-centered subtitle">

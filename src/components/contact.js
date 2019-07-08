@@ -86,7 +86,7 @@ const Contact = () => {
               href="#calcular"
               className="button btn-block btn-outline has-text-weight-bold"
             >
-              ¡Deseo solicitar un crédito!
+              ¡Deseo solicitar un préstamo!
             </AnchorLink>
           </div>
         </div>

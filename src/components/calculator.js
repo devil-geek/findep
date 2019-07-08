@@ -13,7 +13,7 @@ class Calculator extends Component {
       occupation: "",
       amount: "",
       period: "",
-      term: "",
+      plazo: "",
       pay: "",
       loading: false,
       amountValid: true,
@@ -49,7 +49,19 @@ class Calculator extends Component {
       }
     }
 
-    if (name === "term") {
+    if (name === "occupation") {
+      if (value === "FORMAL") {
+        this.setState({
+          period: "Q"
+        });
+      } else if (value === "MICRONEGOCIO") {
+        this.setState({
+          period: "S"
+        });
+      }
+    }
+
+    if (name === "plazo") {
       this.calculate();
     }
   };
@@ -58,11 +70,11 @@ class Calculator extends Component {
     this.setState({
       loading: true
     });
-    const { amount, period, term } = this.state;
+    const { amount, period, plazo } = this.state;
     const url = process.env.GATSBY_FISA_CALCULATOR;
     const res = await axios.post(process.env.GATSBY_API + url, {
       monto: amount,
-      plazo: term,
+      plazo: plazo,
       pago: 0,
       periodo: period
     });
@@ -80,11 +92,11 @@ class Calculator extends Component {
     this.setState({
       loading: true
     });
-    const { amount, period, term } = this.state;
+    const { amount, period, plazo } = this.state;
     const url = process.env.GATSBY_FISA_AMORT;
     const res = await axios.post(process.env.GATSBY_API + url, {
       monto: amount,
-      plazo: term,
+      plazo: plazo,
       pago: 0,
       periodo: period
     });
@@ -153,6 +165,35 @@ class Calculator extends Component {
         return "";
     }
   };
+
+  getPlazoMax = () => {
+    const { amount, period } = this.state;
+    let plazoMax = "";
+    if (!period) {
+      return plazoMax;
+    }
+
+    if (amount > rules.plazo[period].short.max) {
+      plazoMax =
+        rules.plazo[period].long.plazos[
+          rules.plazo[period].long.plazos.length - 1
+        ];
+    } else {
+      plazoMax =
+        rules.plazo[period].short.plazos[
+          rules.plazo[period].short.plazos.length - 1
+        ];
+    }
+
+    if (period === "S") {
+      plazoMax += " semanas";
+    } else {
+      plazoMax += " quincenas";
+    }
+
+    return `De ${rules.plazo[period].short.plazos[0]} a ${plazoMax}`;
+  };
+
   render() {
     const {
       amount,
@@ -250,6 +291,7 @@ class Calculator extends Component {
                         value="S"
                         onChange={this.handleInputChange}
                         disabled={!amount}
+                        checked={period === "S"}
                       />
                       <span className="checkmark" />
                     </label>
@@ -265,6 +307,7 @@ class Calculator extends Component {
                         value="Q"
                         onChange={this.handleInputChange}
                         disabled={!amount}
+                        checked={period === "Q"}
                       />
                       <span className="checkmark" />
                     </label>
@@ -274,16 +317,16 @@ class Calculator extends Component {
             </div>
 
             <div className="field">
-              <label className="label" htmlFor="term">
+              <label className="label" htmlFor="plazo">
                 ¿En qué plazo lo quieres pagar?
                 <br />
-                <small>De 12 a 36 quincenas</small>
+                <small>{this.getPlazoMax()}</small>
               </label>
               <div className="control is-expanded">
                 <div className="select is-fullwidth">
                   <select
-                    name="term"
-                    id="term"
+                    name="plazo"
+                    id="plazo"
                     onChange={this.handleInputChange}
                     disabled={!period}
                   >

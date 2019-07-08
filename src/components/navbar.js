@@ -56,7 +56,7 @@ const Navbar = props => {
             </a>
           </div>
           <div id="navbarMenu" className="navbar-menu">
-            {window.location.pathname !== "/" && (
+            {props.location.pathname !== "/" && (
               <div className="navbar-end">
                 <Link className="navbar-item" to="/">
                   Inicio
@@ -69,7 +69,7 @@ const Navbar = props => {
                 </Link>
               </div>
             )}
-            {window.location.pathname === "/" && (
+            {props.location.pathname === "/" && (
               <div className="navbar-end">
                 <AnchorLink
                   offset="65"
@@ -109,7 +109,7 @@ const Navbar = props => {
           </div>
         </div>
       </nav>
-      {window.location.pathname !== "/" && (
+      {props.location.pathname !== "/" && (
         <div id="mobileMenu">
           <Link className="navbar-item" to="/" onClick={Menu}>
             Inicio
@@ -122,7 +122,7 @@ const Navbar = props => {
           </Link>
         </div>
       )}
-      {window.location.pathname === "/" && (
+      {props.location.pathname === "/" && (
         <div id="mobileMenu">
           <AnchorLink
             onClick={Menu}

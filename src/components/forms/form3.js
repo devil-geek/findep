@@ -41,6 +41,10 @@ class Form3 extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const iname = target.name;
 
+    if (target.validity.patternMismatch) {
+      return;
+    }
+
     await this.setState({
       [iname]: value
     });
@@ -65,10 +69,10 @@ class Form3 extends Component {
     const api = process.env.GATSBY_API;
     let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cuatro";
 
-    const res = await Axios.post(api + url, this.request);
+    /* const res = await Axios.post(api + url, this.request);
     if (res.data.status !== undefined) {
       console.log(res.data);
-    }
+    } */
   };
 
   render() {
@@ -103,7 +107,7 @@ class Form3 extends Component {
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="born_state">
-                    *Estado
+                    *Entidad federativa de nacimiento
                   </label>
                   <div className="control is-expanded">
                     <div className="select is-fullwidth">
@@ -127,25 +131,7 @@ class Form3 extends Component {
                   </div>
                 </div>
               </div>
-              <div className="column is-6 is-12-mobile">
-                <div className="field">
-                  <label className="label" htmlFor="born_city">
-                    *Ciudad
-                  </label>
-                  <div className="control is-expanded">
-                    <input
-                      className="input"
-                      type="text"
-                      name="born_city"
-                      id="born_city"
-                      placeholder="Ciudad de nacimiento"
-                      required
-                      onChange={this.handleInputChange}
-                      value={born_city}
-                    />
-                  </div>
-                </div>
-              </div>
+
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="col">
@@ -187,6 +173,7 @@ class Form3 extends Component {
                       required
                       value={telDom}
                       onChange={this.handleInputChange}
+                      pattern="([0-9]*)?"
                     />
                   </div>
                 </div>

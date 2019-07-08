@@ -1,14 +1,12 @@
 import React from "react";
 import Steps from "../components/steps";
 import Layout from "../components/layout";
-import Navbar from "../components/navbar";
 import icon from "../images/iconos/icono-ok.svg";
 import { navigate } from 'gatsby'
 
 const BuroAprobado = ({ location }) => {
   return (
-    <Layout>
-      <Navbar />
+    <Layout location={location}>
       <Steps isActive={2} />
       <section className="section">
         <div className="has-text-centered">

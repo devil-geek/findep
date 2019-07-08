@@ -80,10 +80,10 @@ class Form4 extends Component {
     const api = process.env.GATSBY_API;
     let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
 
-    const res = await Axios.post(api + url, this.request);
+    /* const res = await Axios.post(api + url, this.request);
     if (res.data.status !== undefined) {
       console.log(res.data);
-    }
+    } */
   };
 
   render() {
@@ -251,6 +251,7 @@ class Form4 extends Component {
                       placeholder="Número de 10 dígitos de tu empleo"
                       required
                       onChange={this.handleInputChange}
+                      pattern="([0-9]*)?"
                     />
                   </div>
                 </div>

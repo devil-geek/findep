@@ -104,11 +104,11 @@ class Form2 extends Component {
     const api = process.env.GATSBY_API;
     let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=tres";
 
-    const res = await Axios.post(api + url, this.request);
+    /* const res = await Axios.post(api + url, this.request);
     if (res.data.status !== undefined) {
       console.log(res.data);
       this.request.folio = res.data.folio
-    } 
+    }  */
   };
 
   render() {

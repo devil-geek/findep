@@ -1,14 +1,13 @@
 import React from "react";
 import { StaticQuery, graphql } from "gatsby";
 import Layout from "../components/layout";
-import Navbar from "../components/navbar";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 
 const shareUrl = "https://www.independencia.com.mx/";
 const title = "Financiera Independencia";
 
-const Gracias = () => (
+const Gracias = ({ location }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -22,8 +21,7 @@ const Gracias = () => (
       }
     `}
     render={data => (
-      <Layout>
-        <Navbar />
+      <Layout location={location}>
         <section
           className="finish hero header"
           style={{
