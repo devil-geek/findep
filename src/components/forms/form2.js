@@ -14,7 +14,6 @@ class Form2 extends Component {
       ccNumber: "",
       cover: []
     };
-
   }
 
   componentDidMount() {
@@ -27,7 +26,6 @@ class Form2 extends Component {
   }
 
   getOffices = async () => {
-    const api = process.env.GATSBY_API;
     const sucUrl = process.env.GATSBY_SUC;
     const { location } = this.props;
     const offices = location.sucursales.filter(
@@ -36,7 +34,7 @@ class Form2 extends Component {
 
     for (let index = 0; index < offices.length; index++) {
       const element = offices[index];
-      const res = await Axios.get(api + sucUrl + `?oficina=${element.oficina}`);
+      const res = await Axios.get(sucUrl + `?oficina=${element.oficina}`);
       element.ubicacion = res.data.payload[0];
     }
 
@@ -46,9 +44,19 @@ class Form2 extends Component {
   };
 
   handleSubmit = async e => {
-    await this.makeRequest()
-    console.log(this.request)
-    navigate("/buro_aprobado", {
+    await this.makeRequest();
+    //let next = "/buro_error";
+    let next = "/buro_aprobado";
+
+    if (this.request.status === "APROBADO") {
+      next = "/buro_aprobado";
+    } else if (this.request.status === "RECHAZADO") {
+      next = "/buro_rechazado";
+    } else if (this.request.status === "ERROR") {
+      next = "/buro_offline";
+    }
+
+    navigate(next, {
       state: {
         ...this.state,
         amount: this.props.location.amount,
@@ -60,8 +68,13 @@ class Form2 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
     const iname = target.name;
+
+    if (target.validity.patternMismatch) {
+      return;
+    }
 
     await this.setState({
       [iname]: value
@@ -101,18 +114,28 @@ class Form2 extends Component {
       sucursal: suc
     };
 
-    const api = process.env.GATSBY_API;
-    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=tres";
-
-    /* const res = await Axios.post(api + url, this.request);
-    if (res.data.status !== undefined) {
-      console.log(res.data);
-      this.request.folio = res.data.folio
-    }  */
+    try {
+      const url = process.env.GATSBY_FISA_ENDPOINT + "?paso=tres";
+      const res = await Axios.post(url, this.request);
+      if (res.data.status !== undefined) {
+        console.log(res.data);
+        this.request = JSON.parse(res.data.solicitud.json);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
-    const { tarjetaCredito, buro, ccNumber, cover, sucInfo } = this.state;
+    const {
+      tarjetaCredito,
+      buro,
+      ccNumber,
+      cover,
+      sucInfo,
+      automotrizCredito,
+      hipotecarioCredito
+    } = this.state;
     return (
       <div className="columns">
         <div className="column">
@@ -287,6 +310,7 @@ class Form2 extends Component {
                         placeholder="últimos 4 dígitos de la tarjeta"
                         required
                         onChange={this.handleInputChange}
+                        pattern="([0-9]*)?"
                       />
                     </div>
                   </div>
@@ -345,6 +369,15 @@ class Form2 extends Component {
             <div className="has-text-centered">
               <button
                 onClick={this.handleSubmit}
+                disabled={
+                  !sucInfo ||
+                  !buro ||
+                  !automotrizCredito ||
+                  !hipotecarioCredito ||
+                  !tarjetaCredito ||
+                  (tarjetaCredito === "S" && !ccNumber) ||
+                  (tarjetaCredito === "S" && ccNumber && ccNumber.length < 4)
+                }
                 className="button is-success btn-block has-text-weight-bold"
               >
                 Consultar buró y continuar

@@ -9,7 +9,6 @@ class Form3 extends Component {
     this.state = {
       country: "mx",
       born_state: "",
-      born_city: "",
       telDom: "",
       civil: ""
     };
@@ -38,7 +37,8 @@ class Form3 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
     const iname = target.name;
 
     if (target.validity.patternMismatch) {
@@ -51,32 +51,35 @@ class Form3 extends Component {
   };
 
   makeRequest = async () => {
-    const { born_city, born_state, civil, telDom } = this.state;
+    const { born_state, civil, telDom } = this.state;
 
     this.request = {
       ...this.request,
       nacimiento: {
-        estado: born_state.toUpperCase(),
-        municipio: born_city.toUpperCase()
+        estadoNacimiento: born_state.toUpperCase(),
+        municipioNacimiento: ""
       },
       estadoCivil: civil.toUpperCase(),
-      telefono: this.request.telefono.push({
-        numeroTelefono: telDom,
-        tipoTelefon: "FIJO"
-      })
+      domicilio: {
+        ...this.request.domicilio,
+        telefonoDomicilio: telDom
+      }
     };
 
-    const api = process.env.GATSBY_API;
-    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cuatro";
-
-    /* const res = await Axios.post(api + url, this.request);
-    if (res.data.status !== undefined) {
-      console.log(res.data);
-    } */
+    try {
+      const url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cuatro";
+      const res = await Axios.post(url, this.request);
+      if (res.data.status !== undefined) {
+        console.log(res.data);
+        this.request = JSON.parse(res.data.solicitud.json);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
-    const { country, born_state, born_city, telDom, civil } = this.state;
+    const { country, born_state, telDom, civil } = this.state;
     return (
       <div className="columns">
         <div className="column">
@@ -121,7 +124,7 @@ class Form3 extends Component {
                         <option value="">Selecciona un estado</option>
                         {states.map(item => {
                           return (
-                            <option key={item.id} value={item.name}>
+                            <option key={item.id} value={item.name.toUpperCase()}>
                               {item.name}
                             </option>
                           );
@@ -147,11 +150,11 @@ class Form3 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona un estado civil</option>
-                        <option value="casado">Casado</option>
-                        <option value="divorciado">Divorciado</option>
-                        <option value="soltero">Soltero</option>
-                        <option value="union_libre">Unión libre</option>
-                        <option value="viudo">Viudo</option>
+                        <option value="CASADO">Casado</option>
+                        <option value="DIVORCIADO">Divorciado</option>
+                        <option value="SOLTERO">Soltero</option>
+                        <option value="UNION LIBRE">Unión libre</option>
+                        <option value="VIUDO">Viudo</option>
                       </select>
                     </div>
                   </div>
@@ -182,6 +185,9 @@ class Form3 extends Component {
             <br />
             <div className="has-text-centered">
               <button
+                disabled={
+                  !born_state || !civil || !telDom || telDom.length < 10
+                }
                 onClick={this.handleSubmit}
                 className="button is-success btn-block has-text-weight-bold"
               >

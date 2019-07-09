@@ -28,8 +28,13 @@ class Form4 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
     const iname = target.name;
+
+    if (target.validity.patternMismatch) {
+      return;
+    }
 
     await this.setState({
       [iname]: value
@@ -38,7 +43,6 @@ class Form4 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
-    console.log(this.request);
     navigate("/gracias");
   };
 
@@ -62,9 +66,9 @@ class Form4 extends Component {
         fuentesIngreso: fuente,
         ingresoMensual: ingreso,
         datosEmpresa: {
-          antiguedad: antiguedad,
-          nombre: empresa,
-          telefono: telEmpresa
+          antiguedadEmpresa: antiguedad,
+          nombreEmpresa: empresa,
+          telefonoEmpresa: telEmpresa
         }
       },
       gastosFamiliares: gastos,
@@ -72,18 +76,21 @@ class Form4 extends Component {
       domicilio: [
         {
           ...this.request.domicilio[0],
-          antiguedad: antiguedadDom
+          antiguedadDomicilio: antiguedadDom
         }
       ]
     };
 
-    const api = process.env.GATSBY_API;
-    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
-
-    /* const res = await Axios.post(api + url, this.request);
-    if (res.data.status !== undefined) {
-      console.log(res.data);
-    } */
+    try {
+      const url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
+      const res = await Axios.post(url, this.request);
+      if (res.data.status !== undefined) {
+        console.log(res.data);
+        this.request = JSON.parse(res.data.solicitud.json);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
@@ -118,20 +125,20 @@ class Form4 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona una ocupación</option>
-                        <option value="Empleado sector público">
+                        <option value="EMPLEADO SECTOR PÚBLICO">
                           Empleado sector público
                         </option>
-                        <option value="Empleado sector privado">
+                        <option value="EMPLEADO SECTOR PRIVADO">
                           Empleado sector privado
                         </option>
-                        <option value="Negocio propio">Negocio propio</option>
-                        <option value="Profesional independiente">
+                        <option value="NEGOCIO PROPIO">Negocio propio</option>
+                        <option value="PROFESIONAL INDEPENDIENTE">
                           Profesional independiente
                         </option>
-                        <option value="Arrendador">Arrendador</option>
-                        <option value="Pensionado">Pensionado</option>
-                        <option value="Jubilado">Jubilado</option>
-                        <option value="Otro">Otro</option>
+                        <option value="ARRENDADOR">Arrendador</option>
+                        <option value="PENSIONADO">Pensionado</option>
+                        <option value="JUBILADO">Jubilado</option>
+                        <option value="OTRO">Otro</option>
                       </select>
                     </div>
                   </div>
@@ -154,13 +161,13 @@ class Form4 extends Component {
                         <option value="">
                           Selecciona una fuente de ingresos
                         </option>
-                        <option value="Salario">Salario</option>
-                        <option value="Honorarios">Honorarios</option>
-                        <option value="Renta">Renta</option>
-                        <option value="Inmuebles">Inmuebles</option>
-                        <option value="Pensión">Pensión</option>
-                        <option value="Jubilación">Jubilación</option>
-                        <option value="Otro">Otro</option>
+                        <option value="SALARIO">Salario</option>
+                        <option value="HONORARIOS">Honorarios</option>
+                        <option value="RENTA">Renta</option>
+                        <option value="INMUEBLES">Inmuebles</option>
+                        <option value="PENSIÓN">Pensión</option>
+                        <option value="JUBILACIÓN">Jubilación</option>
+                        <option value="OTRO">Otro</option>
                       </select>
                     </div>
                   </div>
@@ -200,18 +207,18 @@ class Form4 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona una opción</option>
-                        <option value="Menos de 1 año">Menos de 1 año</option>
-                        <option value="1 año">1 año</option>
-                        <option value="2 años">2 años</option>
-                        <option value="3 años">3 años</option>
-                        <option value="4 años">4 años</option>
-                        <option value="5 años">5 años</option>
-                        <option value="6 años">6 años</option>
-                        <option value="7 años">7 años</option>
-                        <option value="8 años">8 años</option>
-                        <option value="9 años">9 años</option>
-                        <option value="10 años">10 años</option>
-                        <option value="Más de 10 años">Más de 10 años</option>
+                        <option value="MENOS DE 1 AÑO">Menos de 1 año</option>
+                        <option value="1 AÑO">1 año</option>
+                        <option value="2 AÑOS">2 años</option>
+                        <option value="3 AÑOS">3 años</option>
+                        <option value="4 AÑOS">4 años</option>
+                        <option value="5 AÑOS">5 años</option>
+                        <option value="6 AÑOS">6 años</option>
+                        <option value="7 AÑOS">7 años</option>
+                        <option value="8 AÑOS">8 años</option>
+                        <option value="9 AÑOS">9 años</option>
+                        <option value="10 AÑOS">10 años</option>
+                        <option value="MÁS DE 10 AÑOS">Más de 10 años</option>
                       </select>
                     </div>
                   </div>
@@ -232,6 +239,7 @@ class Form4 extends Component {
                       placeholder="Escribe el nombre de tu empresa o mi…"
                       required
                       onChange={this.handleInputChange}
+                      pattern="([A-Za-z0-9 ]*)?"
                     />
                   </div>
                 </div>
@@ -252,6 +260,7 @@ class Form4 extends Component {
                       required
                       onChange={this.handleInputChange}
                       pattern="([0-9]*)?"
+                      maxLength="10"
                     />
                   </div>
                 </div>
@@ -271,18 +280,18 @@ class Form4 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona una opción</option>
-                        <option value="Menos de 1 año">Menos de 1 año</option>
-                        <option value="1 año">1 año</option>
-                        <option value="2 años">2 años</option>
-                        <option value="3 años">3 años</option>
-                        <option value="4 años">4 años</option>
-                        <option value="5 años">5 años</option>
-                        <option value="6 años">6 años</option>
-                        <option value="7 años">7 años</option>
-                        <option value="8 años">8 años</option>
-                        <option value="9 años">9 años</option>
-                        <option value="10 años">10 años</option>
-                        <option value="Más de 10 años">Más de 10 años</option>
+                        <option value="MENOS DE 1 AÑO">Menos de 1 año</option>
+                        <option value="1 AÑO">1 año</option>
+                        <option value="2 AÑOS">2 años</option>
+                        <option value="3 AÑOS">3 años</option>
+                        <option value="4 AÑOS">4 años</option>
+                        <option value="5 AÑOS">5 años</option>
+                        <option value="6 AÑOS">6 años</option>
+                        <option value="7 AÑOS">7 años</option>
+                        <option value="8 AÑOS">8 años</option>
+                        <option value="9 AÑOS">9 años</option>
+                        <option value="10 AÑOS">10 años</option>
+                        <option value="MÁS DE 10 AÑOS">Más de 10 años</option>
                       </select>
                     </div>
                   </div>
@@ -348,6 +357,17 @@ class Form4 extends Component {
             <br />
             <div className="has-text-centered">
               <button
+                disabled={
+                  !occupation ||
+                  !fuente ||
+                  !ingreso ||
+                  !antiguedad ||
+                  !antiguedadDom ||
+                  !empresa ||
+                  !telEmpresa ||
+                  !gastos ||
+                  !dependientes
+                }
                 onClick={this.handleSubmit}
                 className="button is-success btn-block has-text-weight-bold"
               >

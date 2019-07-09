@@ -1,5 +1,6 @@
 {
-  "idMedio": 22,
+  "folio": 0,
+  "idMedio": "22",
   "url": "",
   "sucursal": 0,
   "persona": 0,
@@ -10,10 +11,10 @@
   "fechaNacimiento": "",
   "genero": "",
   "nacionalidad": "MEXICANA",
-  "pais": "MÈXICO",
+  "pais": "",
   "nacimiento": {
-    "estado": "",
-    "municipio": ""
+    "estadoNacimiento": "",
+    "municipioNacimiento": ""
   },
   "estadoCivil": "",
   "correoElectronico": "",
@@ -21,16 +22,16 @@
     {
       "numeroTelefono": "",
       "tipoTelefono": ""
-    },
-    {
-      "numeroTelefono": "",
-      "tipoTelefono": "FIJO"
     }
   ],
   "datosCredito": {
     "condicionesAef": false,
     "condicionesFisa": true,
     "dedicacion": "",
+    "segmento": "",
+    "categoria": "",
+    "tipoProducto": "",
+    "codigoProducto": "",
     "idEmpresa": "1",
     "monto": "",
     "periodo": "",
@@ -45,7 +46,8 @@
       "cp": "",
       "municipio": "",
       "estado": "",
-      "antiguedad": ""
+      "antiguedadDomicilio": "",
+      "telefonoDomicilio": ""
     }
   ],
   "datosBuro": {
@@ -61,9 +63,9 @@
     "fuentesIngreso": "",
     "ingresoMensual": 0,
     "datosEmpresa": {
-      "antiguedad": "",
-      "nombre": "",
-      "telefono": ""
+      "antiguedadEmpresa": "",
+      "nombreEmpresa": "",
+      "telefonoEmpresa": ""
     }
   },
   "gastosFamiliares": 0,

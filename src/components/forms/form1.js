@@ -50,7 +50,8 @@ class Form1 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value.toUpperCase();
+    const value =
+      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
     const iname = target.name;
 
     if (target.validity.patternMismatch) {
@@ -94,7 +95,7 @@ class Form1 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
-    console.log(this.request);
+
     const { callMe } = this.props.location;
     if (callMe) {
       navigate("/gracias");
@@ -159,10 +160,16 @@ class Form1 extends Component {
       }
     }
 
-    this.setState({
-      errorDate,
-      rfc: ""
-    });
+    if (errorDate !== "") {
+      this.setState({
+        errorDate,
+        rfc: ""
+      });
+    } else {
+      this.setState({
+        errorDate
+      });
+    }
   };
 
   getRFC = async () => {
@@ -179,7 +186,7 @@ class Form1 extends Component {
       yy.length === 4 &&
       errorDate === ""
     ) {
-      const rfcResponse = await Axios.post(process.env.GATSBY_API + url, {
+      const rfcResponse = await Axios.post(url, {
         nombre: name,
         segundoNombre: sname,
         apellidoPaterno: lastp,
@@ -194,15 +201,14 @@ class Form1 extends Component {
   };
 
   getCover = async e => {
-    const api = process.env.GATSBY_API;
     const colUrl = process.env.GATSBY_COL;
     const coverUrl = process.env.GATSBY_FISA_COVER;
     const { cp } = this.state;
 
     if (cp.length === 5) {
-      const res = await Axios.get(api + coverUrl + `?cp=${cp}`);
+      const res = await Axios.get(coverUrl + `?cp=${cp}`);
       if (res && res.data && res.data.payload.length > 0) {
-        const cols = await Axios.get(api + colUrl + `?cp=${cp}`);
+        const cols = await Axios.get(colUrl + `?cp=${cp}`);
 
         this.setState({
           cover: cols.data,
@@ -275,7 +281,6 @@ class Form1 extends Component {
       datosBuro: null
     };
 
-    const api = process.env.GATSBY_API;
     let url = process.env.GATSBY_FISA_ENDPOINT;
 
     if (callMe) {
@@ -283,11 +288,15 @@ class Form1 extends Component {
     } else {
       url += "?paso=dos";
     }
-
-    /* const res = await Axios.post(api + url, this.request);
-    if (res.data.status !== undefined) {
-      console.log(res.data);
-    } */
+    try {
+      const res = await Axios.post(url, this.request);
+      if (res.data.status !== undefined) {
+        console.log(res.data);
+        this.request = JSON.parse(res.data.solicitud.json);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   getDays = () => {
@@ -479,7 +488,7 @@ class Form1 extends Component {
                     </small>
                   </label>
                   <div className="columns is-mobile is-ml-bottom">
-                    <div className="column is-3 is-pl-right is-pl-bottom">
+                    <div className="column is-narrow is-pl-right is-pl-bottom">
                       <div className="control is-expanded">
                         <div className="select is-fullwidth">
                           <select
@@ -498,7 +507,7 @@ class Form1 extends Component {
                       </div>
                     </div>
 
-                    <div className="column is-3 is-pl-right is-pl-bottom">
+                    <div className="column is-narrow is-pl-right is-pl-bottom">
                       <div className="control is-expanded">
                         <div className="select is-fullwidth">
                           <select
@@ -517,7 +526,7 @@ class Form1 extends Component {
                       </div>
                     </div>
 
-                    <div className="column is-3 is-pl-right is-pl-bottom">
+                    <div className="column is-narrow is-pl-right is-pl-bottom">
                       <div className="control is-expanded">
                         <div className="select is-fullwidth">
                           <select

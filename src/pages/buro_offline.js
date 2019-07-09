@@ -2,6 +2,7 @@ import React from "react";
 import Steps from "../components/steps";
 import Layout from "../components/layout";
 import icon from "../images/iconos/icono-sad.svg";
+import { navigate } from "gatsby";
 
 const BuroError = ({ location }) => {
   return (
@@ -23,9 +24,18 @@ const BuroError = ({ location }) => {
             <strong>¡Gracias por confiar en nosotros!</strong>
           </p>
           <br />
-          <button className="button is-success btn-block has-text-weight-bold">
-            Enviar datos y finalizar
-          </button>
+          <div className="columns is-centered">
+            <div className="column is-5">
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
+                className="button is-success btn-block has-text-weight-bold"
+              >
+                Enviar datos y finalizar
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>

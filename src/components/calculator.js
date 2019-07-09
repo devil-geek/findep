@@ -72,7 +72,7 @@ class Calculator extends Component {
     });
     const { amount, period, plazo } = this.state;
     const url = process.env.GATSBY_FISA_CALCULATOR;
-    const res = await axios.post(process.env.GATSBY_API + url, {
+    const res = await axios.post(url, {
       monto: amount,
       plazo: plazo,
       pago: 0,
@@ -94,7 +94,7 @@ class Calculator extends Component {
     });
     const { amount, period, plazo } = this.state;
     const url = process.env.GATSBY_FISA_AMORT;
-    const res = await axios.post(process.env.GATSBY_API + url, {
+    const res = await axios.post(url, {
       monto: amount,
       plazo: plazo,
       pago: 0,
