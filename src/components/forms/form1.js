@@ -99,7 +99,7 @@ class Form1 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
-    console.log("Request", this.request)
+    console.log("Request", this.request);
     const { callMe } = this.props.location;
     if (callMe) {
       navigate("/gracias");
@@ -394,7 +394,7 @@ class Form1 extends Component {
       termsApoyo,
       rfcModal
     } = this.state;
-    
+
     return (
       <div className="columns">
         <div className="column">
@@ -926,16 +926,20 @@ class Form1 extends Component {
               </div>
             </div>
             <br />
-            <div className="has-text-centered">
-              <button
-                disabled={!privacy || !terms}
-                onClick={this.handleSubmit}
-                className="button is-success btn-block has-text-weight-bold"
-              >
-                {this.props.location && this.props.location.callMe
-                  ? "Enviar y terminar"
-                  : "Guardar y continuar"}
-              </button>
+            <div className="columns">
+              <div className="column is-6">
+                <div className="has-text-centered">
+                  <button
+                    disabled={!privacy || !terms}
+                    onClick={this.handleSubmit}
+                    className="button is-success btn-block has-text-weight-bold"
+                  >
+                    {this.props.location && this.props.location.callMe
+                      ? "Enviar y terminar"
+                      : "Guardar y continuar"}
+                  </button>
+                </div>
+              </div>
             </div>
             <Modal
               modal={termsModal}
@@ -955,7 +959,9 @@ class Form1 extends Component {
             </Modal>
             <Modal
               modal={countryModal}
-              close={() => this.closeModal("countryModal")}
+              close={() => {
+                navigate("/");
+              }}
               title="¡LO SENTIMOS!"
               accept={() => {
                 navigate("/");
@@ -977,7 +983,9 @@ class Form1 extends Component {
 
             <Modal
               modal={noCoverModal}
-              close={() => this.closeModal("noCoverModal")}
+              close={() => {
+                return;
+              }}
               title="¡LO SENTIMOS!"
               accept={() => {
                 navigate("/");
@@ -1047,12 +1055,16 @@ class Form1 extends Component {
 
             <Modal
               modal={ageModal}
-              close={() => this.closeModal("ageModal")}
+              close={() => {
+                return;
+              }}
               title="¡LO SENTIMOS!"
               accept={() => {
                 navigate("/");
               }}
               acceptText="Cerrar y cancelar la solicitud"
+              cancel={() => this.closeModal("ageModal")}
+              cancelText="¿Te equivocaste? da click aquí"
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
@@ -1090,7 +1102,6 @@ class Form1 extends Component {
                 <strong>De antemano, agradecemos tu preferencia.</strong>
               </div>
             </Modal>
-
           </div>
         </div>
       </div>

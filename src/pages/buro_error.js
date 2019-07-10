@@ -10,13 +10,13 @@ const BuroError = ({ location }) => {
       <Steps isActive={2} />
       <section className="section">
         <div className="has-text-centered">
-          <h2 className="has-text-primary has-text-centered subtitle">
+          <h2 className="has-text-primary has-text-centered subtitle has-text-weight-bold is-size-3">
             ¡GRACIAS POR CONFIAR EN NOSOTROS!
           </h2>
           <img width="80px" src={icon} alt="aprobado" />
           <br />
           <br />
-          <p>A la brevedad nos comunicaremos contigo.</p>
+          <p className="is-size-6">A la brevedad nos comunicaremos contigo.</p>
           <br />
           <br />
           <div className="columns is-centered">

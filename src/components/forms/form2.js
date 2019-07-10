@@ -370,22 +370,28 @@ class Form2 extends Component {
               Financiera Independencia.
             </p>
             <br />
-            <div className="has-text-centered">
-              <button
-                onClick={this.handleSubmit}
-                disabled={
-                  !sucInfo ||
-                  !buro ||
-                  !automotrizCredito ||
-                  !hipotecarioCredito ||
-                  !tarjetaCredito ||
-                  (tarjetaCredito === "S" && !ccNumber) ||
-                  (tarjetaCredito === "S" && ccNumber && ccNumber.length < 4)
-                }
-                className="button is-success btn-block has-text-weight-bold"
-              >
-                Consultar buró y continuar
-              </button>
+            <div className="columns">
+              <div className="column is-6">
+                <div className="has-text-centered">
+                  <button
+                    onClick={this.handleSubmit}
+                    disabled={
+                      !sucInfo ||
+                      !buro ||
+                      !automotrizCredito ||
+                      !hipotecarioCredito ||
+                      !tarjetaCredito ||
+                      (tarjetaCredito === "S" && !ccNumber) ||
+                      (tarjetaCredito === "S" &&
+                        ccNumber &&
+                        ccNumber.length < 4)
+                    }
+                    className="button is-success btn-block has-text-weight-bold"
+                  >
+                    Consultar buró y continuar
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

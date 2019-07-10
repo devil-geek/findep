@@ -27,7 +27,7 @@ const Modal = props => {
               {props.cancel && (
                 <button
                   className="button is-text has-text-success btn-block"
-                  onClick={close}
+                  onClick={props.cancel}
                 >
                   {props.cancelText || "Cancelar"}
                 </button>

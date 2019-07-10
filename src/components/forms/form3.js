@@ -218,20 +218,24 @@ class Form3 extends Component {
               </div>
             </div>
             <br />
-            <div className="has-text-centered">
-              <button
-                disabled={
-                  !bornState ||
-                  !domType ||
-                  !civil ||
-                  !telDom ||
-                  telDom.length < 10
-                }
-                onClick={this.handleSubmit}
-                className="button is-success btn-block has-text-weight-bold"
-              >
-                Guardar datos y continuar
-              </button>
+            <div className="columns">
+              <div className="column is-6">
+                <div className="has-text-centered">
+                  <button
+                    disabled={
+                      !bornState ||
+                      !domType ||
+                      !civil ||
+                      !telDom ||
+                      telDom.length < 10
+                    }
+                    onClick={this.handleSubmit}
+                    className="button is-success btn-block has-text-weight-bold"
+                  >
+                    Guardar datos y continuar
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

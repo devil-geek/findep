@@ -3,6 +3,73 @@ import { navigate } from "gatsby";
 import Axios from "axios";
 import moment from "moment";
 
+const ocupaciones = [
+  {
+    label: "Semi Profesional",
+    id: "2PB"
+  },
+  {
+    label: "Ejecutivo",
+    id: "2AC"
+  },
+  {
+    label: "Oficinista",
+    id: "2AB"
+  },
+  {
+    label: "Profesional",
+    id: "2AG"
+  },
+  {
+    label: "Chofer",
+    id: "2MA"
+  },
+  {
+    label: "Construcción",
+    id: "2OK"
+  },
+  {
+    label: "Guardia (civil o privado)",
+    id: "2PC"
+  },
+  {
+    label: "Obrero",
+    id: "2SE"
+  },
+  {
+    label: "Servicios",
+    id: "1UB"
+  },
+  {
+    label: "Trabajo Pesado (jornalero)",
+    id: "2TB"
+  },
+  {
+    label: "Administrador (MG)",
+    id: "2OD"
+  },
+  {
+    label: "Independiente/Propietario de Negocio",
+    id: "2FA"
+  },
+  {
+    label: "Trabajo de Habilidad (instalador,operador de equipo)",
+    id: "2OE"
+  },
+  {
+    label: "Ventas",
+    id: "2CC"
+  },
+  {
+    label: "Jubilado",
+    id: "2FJ"
+  },
+  {
+    label: "Otros",
+    id: "2QA"
+  }
+];
+
 class Form4 extends Component {
   constructor(props) {
     super(props);
@@ -169,20 +236,9 @@ class Form4 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona una ocupación</option>
-                        <option value="EMPLEADO SECTOR PÚBLICO">
-                          Empleado sector público
-                        </option>
-                        <option value="EMPLEADO SECTOR PRIVADO">
-                          Empleado sector privado
-                        </option>
-                        <option value="NEGOCIO PROPIO">Negocio propio</option>
-                        <option value="PROFESIONAL INDEPENDIENTE">
-                          Profesional independiente
-                        </option>
-                        <option value="ARRENDADOR">Arrendador</option>
-                        <option value="PENSIONADO">Pensionado</option>
-                        <option value="JUBILADO">Jubilado</option>
-                        <option value="OTRO">Otro</option>
+                        {ocupaciones.map(item => {
+                          return <option key={item.id} value={item.id}>{item.label}</option>
+                        })}
                       </select>
                     </div>
                   </div>
@@ -417,26 +473,30 @@ class Form4 extends Component {
               </div>
             </div>
             <br />
-            <div className="has-text-centered">
-              <button
-                disabled={
-                  !occupation ||
-                  !fuente ||
-                  !ingreso ||
-                  !a_mm ||
-                  !a_yy ||
-                  !ad_mm ||
-                  !ad_yy ||
-                  !empresa ||
-                  !telEmpresa ||
-                  !gastos ||
-                  !dependientes
-                }
-                onClick={this.handleSubmit}
-                className="button is-success btn-block has-text-weight-bold"
-              >
-                Finalizar solicitud
-              </button>
+            <div className="columns">
+              <div className="column is-6">
+                <div className="has-text-centered">
+                  <button
+                    disabled={
+                      !occupation ||
+                      !fuente ||
+                      !ingreso ||
+                      !a_mm ||
+                      !a_yy ||
+                      !ad_mm ||
+                      !ad_yy ||
+                      !empresa ||
+                      !telEmpresa ||
+                      !gastos ||
+                      !dependientes
+                    }
+                    onClick={this.handleSubmit}
+                    className="button is-success btn-block has-text-weight-bold"
+                  >
+                    Finalizar solicitud
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

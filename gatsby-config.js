@@ -1,16 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: "Findep",
-    author: "Carlos Ocejo",
-    imageUrl: "https://i.imgur.com/Vz81GEl.png",
-    description: "A Project to bootstrap your next Gatsby + Bulma site.",
+    title: "Financiera independencia",
+    author: "Carlos Ocejo - Common Sense People",
+    description:
+      "Préstamos personales, tu tienes el plan, nosotros el préstamo que necesitas. En Financiera independencia te ofrecemos créditos sin aval, sin garantías, fácil, rápido y sin tanto rollo.",
     keywords: `Web developer, Web, Developer, CSS, HTML, JS, Javascript, Gatsby, Bulma Developer, CSS3, HTML5, Seo, Starter`,
-    twitter: "https://twitter.com/amanhimself",
-    github: `https://github.com/amandeepmittal`,
-    medium: "https://medium.com/@amanhimself",
-    gatsby: "https://www.gatsbyjs.org/",
-    bulma: "https://bulma.io/",
-    siteUrl: `https://www.example.com`
+    siteUrl: "https://www.independencia.com.mx/"
   },
   plugins: [
     "gatsby-plugin-react-helmet",
@@ -53,9 +48,18 @@ module.exports = {
         }
       }
     },
-		`gatsby-plugin-sitemap`
+    `gatsby-plugin-sitemap`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     // 'gatsby-plugin-offline',
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-TCNRP7G",
+        // Include GTM in development.
+        // Defaults to false meaning GTM will only be loaded in production.
+        includeInDevelopment: true
+      }
+    }
   ]
 };

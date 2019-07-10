@@ -10,13 +10,15 @@ const BuroError = ({ location }) => {
       <Steps isActive={2} />
       <section className="section">
         <div className="has-text-centered">
-          <h2 className="has-text-primary has-text-centered subtitle">
+          <h2 className="has-text-primary has-text-centered subtitle has-text-weight-bold is-size-3">
             ¡LO SENTIMOS!
           </h2>
           <img width="80px" src={icon} alt="aprobado" />
           <br />
           <br />
-          <p>No fue posible realizar la consulta de tu Buró en línea.</p>
+          <p className="is-size-6">
+            No fue posible realizar la consulta de tu Buró en línea.
+          </p>
           <br />
           <p className="is-size-6">A la brevedad nos comunicaremos contigo.</p>
           <br />

@@ -10,13 +10,15 @@ const BuroRechazado = ({ location }) => {
       <Steps isActive={2} />
       <section className="section">
         <div className="has-text-centered">
-          <h2 className="has-text-primary has-text-centered subtitle">
+          <h2 className="has-text-primary has-text-centered subtitle has-text-weight-bold is-size-3">
             ¡LO SENTIMOS!
           </h2>
           <img width="80px" src={icon} alt="aprobado" />
           <br />
           <br />
-          <p>En estos momentos no es posible ofrecerte un préstamo.</p>
+          <p className="is-size-6">
+            En estos momentos no es posible ofrecerte un préstamo.
+          </p>
           <br />
           <p className="is-size-6">
             Estamos seguros de que más adelante podremos ayudarte.
