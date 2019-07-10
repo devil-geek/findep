@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { navigate } from "gatsby";
+import Axios from "axios";
+import moment from "moment";
 
 class Form4 extends Component {
   constructor(props) {
@@ -8,12 +10,14 @@ class Form4 extends Component {
       occupation: "",
       fuente: "",
       ingreso: "",
-      antiguedad: "",
-      antiguedadDom: "",
       empresa: "",
       telEmpresa: "",
       gastos: "",
-      dependientes: ""
+      dependientes: "",
+      a_mm: "",
+      a_yy: "",
+      ad_mm: "",
+      ad_yy: ""
     };
   }
 
@@ -27,8 +31,13 @@ class Form4 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
     const iname = target.name;
+
+    if (target.validity.patternMismatch) {
+      return;
+    }
 
     await this.setState({
       [iname]: value
@@ -37,7 +46,7 @@ class Form4 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
-    console.log(this.request);
+    console.log("Request", this.request);
     navigate("/gracias");
   };
 
@@ -46,8 +55,10 @@ class Form4 extends Component {
       occupation,
       fuente,
       ingreso,
-      antiguedad,
-      antiguedadDom,
+      a_mm,
+      a_yy,
+      ad_mm,
+      ad_yy,
       empresa,
       telEmpresa,
       gastos,
@@ -61,9 +72,9 @@ class Form4 extends Component {
         fuentesIngreso: fuente,
         ingresoMensual: ingreso,
         datosEmpresa: {
-          antiguedad: antiguedad,
-          nombre: empresa,
-          telefono: telEmpresa
+          antiguedadEmpresa: `01/${a_mm}/${a_yy}`,
+          nombreEmpresa: empresa,
+          telefonoEmpresa: telEmpresa
         }
       },
       gastosFamiliares: gastos,
@@ -71,18 +82,57 @@ class Form4 extends Component {
       domicilio: [
         {
           ...this.request.domicilio[0],
-          antiguedad: antiguedadDom
+          antiguedadDomicilio: `01/${ad_mm}/${ad_yy}`
         }
-      ]
+      ],
+      url: this.props.url
     };
 
-    const api = process.env.GATSBY_API;
-    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
+    try {
+      const url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cinco";
+      const res = await Axios.post(url, this.request);
+      if (res.data.status !== undefined) {
+        console.log(res.data);
+        this.request = JSON.parse(res.data.solicitud.json);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-    /* const res = await Axios.post(api + url, this.request);
-    if (res.data.status !== undefined) {
-      console.log(res.data);
-    } */
+  getMonths = () => {
+    let months = [];
+    for (let i = 1; i <= 12; i++) {
+      let m = i;
+      if (m < 10) {
+        m = "0" + i;
+      }
+      months.push(
+        <option key={m} value={m}>
+          {m}
+        </option>
+      );
+    }
+
+    return months;
+  };
+
+  getYears = () => {
+    let years = [];
+    const minY = moment()
+      .subtract(30, "years")
+      .year();
+    const maxY = moment().year();
+
+    for (let i = minY; i <= maxY; i++) {
+      years.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+
+    return years;
   };
 
   render() {
@@ -90,12 +140,14 @@ class Form4 extends Component {
       occupation,
       fuente,
       ingreso,
-      antiguedad,
-      antiguedadDom,
       empresa,
       telEmpresa,
       gastos,
-      dependientes
+      dependientes,
+      a_mm,
+      a_yy,
+      ad_mm,
+      ad_yy
     } = this.state;
     return (
       <div className="columns">
@@ -117,20 +169,20 @@ class Form4 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona una ocupación</option>
-                        <option value="Empleado sector público">
+                        <option value="EMPLEADO SECTOR PÚBLICO">
                           Empleado sector público
                         </option>
-                        <option value="Empleado sector privado">
+                        <option value="EMPLEADO SECTOR PRIVADO">
                           Empleado sector privado
                         </option>
-                        <option value="Negocio propio">Negocio propio</option>
-                        <option value="Profesional independiente">
+                        <option value="NEGOCIO PROPIO">Negocio propio</option>
+                        <option value="PROFESIONAL INDEPENDIENTE">
                           Profesional independiente
                         </option>
-                        <option value="Arrendador">Arrendador</option>
-                        <option value="Pensionado">Pensionado</option>
-                        <option value="Jubilado">Jubilado</option>
-                        <option value="Otro">Otro</option>
+                        <option value="ARRENDADOR">Arrendador</option>
+                        <option value="PENSIONADO">Pensionado</option>
+                        <option value="JUBILADO">Jubilado</option>
+                        <option value="OTRO">Otro</option>
                       </select>
                     </div>
                   </div>
@@ -153,13 +205,13 @@ class Form4 extends Component {
                         <option value="">
                           Selecciona una fuente de ingresos
                         </option>
-                        <option value="Salario">Salario</option>
-                        <option value="Honorarios">Honorarios</option>
-                        <option value="Renta">Renta</option>
-                        <option value="Inmuebles">Inmuebles</option>
-                        <option value="Pensión">Pensión</option>
-                        <option value="Jubilación">Jubilación</option>
-                        <option value="Otro">Otro</option>
+                        <option value="SALARIO">Salario</option>
+                        <option value="HONORARIOS">Honorarios</option>
+                        <option value="NEGOCIO">Negocio</option>
+                        <option value="RENTA">Renta</option>
+                        <option value="PENSION">Pensión</option>
+                        <option value="JUBILACION">Jubilación</option>
+                        <option value="OTRO">Otro</option>
                       </select>
                     </div>
                   </div>
@@ -187,31 +239,40 @@ class Form4 extends Component {
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="col">
-                    *Antigüedad en empleo / micronegocio actual
+                    *Fecha de inicio en empleo / micronegocio
                   </label>
-                  <div className="control is-expanded">
-                    <div className="select is-fullwidth">
-                      <select
-                        name="antiguedad"
-                        id="antiguedad"
-                        required
-                        value={antiguedad}
-                        onChange={this.handleInputChange}
-                      >
-                        <option value="">Selecciona una opción</option>
-                        <option value="Menos de 1 año">Menos de 1 año</option>
-                        <option value="1 año">1 año</option>
-                        <option value="2 años">2 años</option>
-                        <option value="3 años">3 años</option>
-                        <option value="4 años">4 años</option>
-                        <option value="5 años">5 años</option>
-                        <option value="6 años">6 años</option>
-                        <option value="7 años">7 años</option>
-                        <option value="8 años">8 años</option>
-                        <option value="9 años">9 años</option>
-                        <option value="10 años">10 años</option>
-                        <option value="Más de 10 años">Más de 10 años</option>
-                      </select>
+                  <div className="columns is-mobile">
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="a_mm"
+                            id="a_mm"
+                            required
+                            value={a_mm}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Mes</option>
+                            {this.getMonths()}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="a_yy"
+                            id="a_yy"
+                            required
+                            value={a_yy}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Año</option>
+                            {this.getYears()}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -231,6 +292,7 @@ class Form4 extends Component {
                       placeholder="Escribe el nombre de tu empresa o mi…"
                       required
                       onChange={this.handleInputChange}
+                      pattern="([A-Za-z0-9 ]*)?"
                     />
                   </div>
                 </div>
@@ -250,6 +312,8 @@ class Form4 extends Component {
                       placeholder="Número de 10 dígitos de tu empleo"
                       required
                       onChange={this.handleInputChange}
+                      pattern="([0-9]*)?"
+                      maxLength="10"
                     />
                   </div>
                 </div>
@@ -257,31 +321,40 @@ class Form4 extends Component {
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="antiguedadDom">
-                    *Antigüedad en el domicilio actual
+                    *Fecha de inicio en el domicilio actual
                   </label>
-                  <div className="control is-expanded">
-                    <div className="select is-fullwidth">
-                      <select
-                        name="antiguedadDom"
-                        id="antiguedadDom"
-                        value={antiguedadDom}
-                        required
-                        onChange={this.handleInputChange}
-                      >
-                        <option value="">Selecciona una opción</option>
-                        <option value="Menos de 1 año">Menos de 1 año</option>
-                        <option value="1 año">1 año</option>
-                        <option value="2 años">2 años</option>
-                        <option value="3 años">3 años</option>
-                        <option value="4 años">4 años</option>
-                        <option value="5 años">5 años</option>
-                        <option value="6 años">6 años</option>
-                        <option value="7 años">7 años</option>
-                        <option value="8 años">8 años</option>
-                        <option value="9 años">9 años</option>
-                        <option value="10 años">10 años</option>
-                        <option value="Más de 10 años">Más de 10 años</option>
-                      </select>
+                  <div className="columns is-mobile">
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="ad_mm"
+                            id="ad_mm"
+                            required
+                            value={ad_mm}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Mes</option>
+                            {this.getMonths()}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="ad_yy"
+                            id="ad_yy"
+                            required
+                            value={ad_yy}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Año</option>
+                            {this.getYears()}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -346,6 +419,19 @@ class Form4 extends Component {
             <br />
             <div className="has-text-centered">
               <button
+                disabled={
+                  !occupation ||
+                  !fuente ||
+                  !ingreso ||
+                  !a_mm ||
+                  !a_yy ||
+                  !ad_mm ||
+                  !ad_yy ||
+                  !empresa ||
+                  !telEmpresa ||
+                  !gastos ||
+                  !dependientes
+                }
                 onClick={this.handleSubmit}
                 className="button is-success btn-block has-text-weight-bold"
               >

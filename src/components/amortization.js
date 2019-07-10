@@ -101,7 +101,7 @@ const Amortization = props => {
               className="has-text-white has-text-weight-semibold right"
               colSpan="9"
             >
-              TOTAL A PAGAR: {numberWithCommas(sum.renta)}
+              TOTAL A PAGAR: ${numberWithCommas(sum.renta)}
             </td>
           </tr>
         </tbody>
@@ -111,10 +111,10 @@ const Amortization = props => {
           * Comisiones:{" "}
         </p>
         <p className="is-size-7">
-          <strong>Por apertura:</strong> 5% sobre el monto de crédito.
+          <strong>Por apertura:</strong> 6.5% sobre el monto de crédito.
         </p>
         <p className="is-size-7">
-          <strong>Gastos de investigación:</strong> 5% sobre el monto de
+          <strong>Gastos de investigación:</strong> 6.5% sobre el monto de
           crédito.
         </p>
         <p className="is-size-7">

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../styles/main.scss";
 import VisibilitySensor from "react-visibility-sensor";
 import Header from "../components/header";
-import Navbar from "../components/navbar";
 import Counter from "../components/counter";
 import Layout from "../components/layout";
 import AnchorLink from "react-anchor-link-smooth-scroll";
@@ -27,8 +26,7 @@ class IndexPage extends Component {
 
   render() {
     return (
-      <Layout>
-        <Navbar active={this.state.active} />
+      <Layout active={this.state.active} location={this.props.location}>
         <VisibilitySensor
           onChange={isVisible => this.onVisibilityChange("inicio", isVisible)}
           delayedCall
@@ -40,7 +38,7 @@ class IndexPage extends Component {
             <Calculator />
             <div className="section is-size-7 is-pl-bottom is-hidden-desktop">
               <p>
-                <strong>MICRONEGOCIO: CAT PROMEDIO: 176.6% Sin IVA. </strong>
+                <strong>MICRONEGOCIO: CAT PROMEDIO: 177.6% Sin IVA. </strong>
                 <br />
                 Para fines informativos y de comparación. Tasa de Interés Anual
                 Fija Máxima: 114.8% Plazo Mínimo: 26 semanas Plaza Máximo: 78
@@ -49,11 +47,11 @@ class IndexPage extends Component {
               <br />
               <p>
                 <strong>
-                  CREDIINMEDIATO SIMPLE: CAT PROMEDIO: 164.6% Sin IVA.{" "}
+                  CREDIINMEDIATO SIMPLE: CAT PROMEDIO: 171.4% Sin IVA.{" "}
                 </strong>
                 <br />
                 Para fines informativos y de comparación. Tasa de Interés Anual
-                Fija Máxima: 114.6% Plazo Mínimo: 12 quincenas Plaza Máximo: 48
+                Fija Máxima: 109.8% Plazo Mínimo: 12 quincenas Plaza Máximo: 48
                 quincenas.
               </p>
               <br />
@@ -61,7 +59,7 @@ class IndexPage extends Component {
                 *Sujeto a aprobación de crédito. Consulta términos, condiciones
                 de contratación, tasas de interés y comisiones en{" "}
                 <a
-                  className="  has-text-underlined"
+                  className="has-text-underlined"
                   href="https://www.independencia.com.mx"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -208,7 +206,7 @@ class IndexPage extends Component {
                 href="#calcular"
                 className="button is-success btn-block has-text-weight-bold"
               >
-                ¡Deseo solicitar un crédito!
+                ¡Deseo solicitar un préstamo!
               </AnchorLink>
             </div>
           </div>

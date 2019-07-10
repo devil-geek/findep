@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { navigate } from "gatsby";
 import states from "./states.json";
+import Axios from "axios";
 
 class Form3 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       country: "mx",
-      born_state: "",
-      born_city: "",
+      bornState: "",
       telDom: "",
-      civil: ""
+      civil: "",
+      domType: ""
     };
   }
 
@@ -24,7 +25,7 @@ class Form3 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
-    console.log(this.request);
+    console.log("Request", this.request);
     navigate("/datos_de_tu_ocupacion", {
       state: {
         ...this.state,
@@ -37,8 +38,13 @@ class Form3 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
     const iname = target.name;
+
+    if (target.validity.patternMismatch) {
+      return;
+    }
 
     await this.setState({
       [iname]: value
@@ -46,32 +52,39 @@ class Form3 extends Component {
   };
 
   makeRequest = async () => {
-    const { born_city, born_state, civil, telDom } = this.state;
+    const { bornState, civil, telDom, domType } = this.state;
 
     this.request = {
       ...this.request,
       nacimiento: {
-        estado: born_state.toUpperCase(),
-        municipio: born_city.toUpperCase()
+        estadoNacimiento: bornState.toUpperCase(),
+        municipioNacimiento: ""
       },
       estadoCivil: civil.toUpperCase(),
-      telefono: this.request.telefono.push({
-        numeroTelefono: telDom,
-        tipoTelefon: "FIJO"
-      })
+      domicilio: [
+        {
+          ...this.request.domicilio[0],
+          telefonoDomicilio: telDom,
+          tipoVivienda: domType
+        }
+      ],
+      url: this.props.url
     };
 
-    const api = process.env.GATSBY_API;
-    let url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cuatro";
-
-    /* const res = await Axios.post(api + url, this.request);
-    if (res.data.status !== undefined) {
-      console.log(res.data);
-    } */
+    try {
+      const url = process.env.GATSBY_FISA_ENDPOINT + "?paso=cuatro";
+      const res = await Axios.post(url, this.request);
+      if (res.data.status !== undefined) {
+        console.log(res.data);
+        this.request = JSON.parse(res.data.solicitud.json);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
-    const { country, born_state, born_city, telDom, civil } = this.state;
+    const { country, bornState, telDom, civil, domType } = this.state;
     return (
       <div className="columns">
         <div className="column">
@@ -101,22 +114,25 @@ class Form3 extends Component {
               </div>
               <div className="column is-6 is-12-mobile">
                 <div className="field">
-                  <label className="label" htmlFor="born_state">
-                    *Estado
+                  <label className="label" htmlFor="bornState">
+                    *Entidad federativa de nacimiento
                   </label>
                   <div className="control is-expanded">
                     <div className="select is-fullwidth">
                       <select
-                        name="born_state"
-                        id="born_state"
-                        value={born_state}
+                        name="bornState"
+                        id="bornState"
+                        value={bornState}
                         required
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona un estado</option>
                         {states.map(item => {
                           return (
-                            <option key={item.id} value={item.name}>
+                            <option
+                              key={item.id}
+                              value={item.name.toUpperCase()}
+                            >
                               {item.name}
                             </option>
                           );
@@ -126,25 +142,33 @@ class Form3 extends Component {
                   </div>
                 </div>
               </div>
+
               <div className="column is-6 is-12-mobile">
                 <div className="field">
-                  <label className="label" htmlFor="born_city">
-                    *Ciudad
+                  <label className="label" htmlFor="domType">
+                    *Tipo de vivienda
                   </label>
                   <div className="control is-expanded">
-                    <input
-                      className="input"
-                      type="text"
-                      name="born_city"
-                      id="born_city"
-                      placeholder="Ciudad de nacimiento"
-                      required
-                      onChange={this.handleInputChange}
-                      value={born_city}
-                    />
+                    <div className="select is-fullwidth">
+                      <select
+                        name="domType"
+                        id="domType"
+                        value={domType}
+                        required
+                        onChange={this.handleInputChange}
+                      >
+                        <option value="">Selecciona un tipo</option>
+                        <option value="PROPIA">PROPIA</option>
+                        <option value="HIPOTECADA">HIPOTECADA</option>
+                        <option value="FAMILIARES">FAMILIARES</option>
+                        <option value="RENTADA">RENTADA</option>
+                        <option value="OTRO">OTRO</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
+
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="col">
@@ -160,11 +184,12 @@ class Form3 extends Component {
                         onChange={this.handleInputChange}
                       >
                         <option value="">Selecciona un estado civil</option>
-                        <option value="casado">Casado</option>
-                        <option value="divorciado">Divorciado</option>
-                        <option value="soltero">Soltero</option>
-                        <option value="union_libre">Unión libre</option>
-                        <option value="viudo">Viudo</option>
+                        <option value="SOLTERO">Soltero</option>
+                        <option value="CASADO">Casado</option>
+                        <option value="UNION LIBRE">Unión libre</option>
+                        <option value="VIUDO">Viudo</option>
+                        <option value="SEPARADO">Separado</option>
+                        <option value="DIVORCIADO">Divorciado</option>
                       </select>
                     </div>
                   </div>
@@ -186,6 +211,7 @@ class Form3 extends Component {
                       required
                       value={telDom}
                       onChange={this.handleInputChange}
+                      pattern="([0-9]*)?"
                     />
                   </div>
                 </div>
@@ -194,6 +220,13 @@ class Form3 extends Component {
             <br />
             <div className="has-text-centered">
               <button
+                disabled={
+                  !bornState ||
+                  !domType ||
+                  !civil ||
+                  !telDom ||
+                  telDom.length < 10
+                }
                 onClick={this.handleSubmit}
                 className="button is-success btn-block has-text-weight-bold"
               >

@@ -1,13 +1,12 @@
 import React from "react";
 import Steps from "../components/steps";
 import Layout from "../components/layout";
-import Navbar from "../components/navbar";
 import icon from "../images/iconos/icono-sad.svg";
- 
+import { navigate } from "gatsby";
+
 const BuroRechazado = ({ location }) => {
   return (
-    <Layout>
-      <Navbar />
+    <Layout location={location}>
       <Steps isActive={2} />
       <section className="section">
         <div className="has-text-centered">
@@ -27,9 +26,18 @@ const BuroRechazado = ({ location }) => {
             <strong>¡Gracias por tu preferencia!</strong>
           </p>
           <br />
-          <button className="button is-success btn-block has-text-weight-bold">
-            Enviar datos y finalizar
-          </button>
+          <div className="columns is-centered">
+            <div className="column is-5">
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
+                className="button is-success btn-block has-text-weight-bold"
+              >
+                Enviar datos y finalizar
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>

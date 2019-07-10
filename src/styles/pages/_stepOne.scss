@@ -1,5 +1,5 @@
 .wrap-amount{
-  background: #EFEFEF;
+  background: #FAFAFA;
   border-bottom: $primary solid 5px;
   font-size: .9rem;
   padding: .8rem;
@@ -10,9 +10,22 @@
 
 @include desktop{
   .wrap-amount{
+    margin-top: 2rem;
     float: right;
     font-size: 1rem;
-    padding: 1.2rem;
+    padding: 2rem 1.2rem;
+    max-width: 300px;
+    .column{
+      p{
+      margin-left: 2.5rem;
+        &.has-text-weight-bold{
+          font-size: 1.125rem;
+        }
+        &.has-text-primary{
+          font-size: 1.25rem
+        }
+      }
+    }
   }
   .form-title{
     padding: 1.5rem .8rem;

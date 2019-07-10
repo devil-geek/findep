@@ -27,107 +27,141 @@ const Menu = () => {
   Toggle(menu, className);
 };
 
-const Navbar = props => (
-  <div>
-    <nav
-      id="nav"
-      className="navbar"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div className="container navbar-container">
-        <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
-            <img src={logo} className="logo-img" alt="Logo-1" />
-          </Link>
-          {/*eslint-disable-next-line*/}
-          <a
-            role="button"
-            className="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarMenu"
-            onClick={Menu}
-          >
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-          </a>
-        </div>
-        <div id="navbarMenu" className="navbar-menu">
-          <div className="navbar-end">
-            <AnchorLink
-              offset="65"
-              href="#inicio"
-              className={
-                props.active === "inicio" ? "navbar-item active" : "navbar-item"
-              }
+const Navbar = props => {
+  return (
+    <div>
+      <nav
+        id="nav"
+        className="navbar"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div className="container navbar-container">
+          <div className="navbar-brand">
+            <Link className="navbar-item" to="/">
+              <img src={logo} className="logo-img" alt="Logo-1" />
+            </Link>
+            {/*eslint-disable-next-line*/}
+            <a
+              role="button"
+              className="navbar-burger burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbarMenu"
+              onClick={Menu}
             >
-              Inicio
-            </AnchorLink>
-            <AnchorLink
-              offset="65"
-              href="#como_funciona"
-              className={
-                props.active === "como_funciona"
-                  ? "navbar-item active"
-                  : "navbar-item"
-              }
-            >
-              ¿Cómo funciona?
-            </AnchorLink>
-            <AnchorLink
-              offset="65"
-              href="#nuestra_empresa"
-              className={
-                props.active === "nuestra_empresa"
-                  ? "navbar-item active"
-                  : "navbar-item"
-              }
-            >
-              Nuestra empresa
-            </AnchorLink>
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+            </a>
+          </div>
+          <div id="navbarMenu" className="navbar-menu">
+            {props.location.pathname !== "/" && (
+              <div className="navbar-end">
+                <Link className="navbar-item" to="/">
+                  Inicio
+                </Link>
+                <Link className="navbar-item" to="/">
+                  ¿Cómo funciona?
+                </Link>
+                <Link className="navbar-item" to="/">
+                  Nuestra empresa
+                </Link>
+              </div>
+            )}
+            {props.location.pathname === "/" && (
+              <div className="navbar-end">
+                <AnchorLink
+                  offset="65"
+                  href="#inicio"
+                  className={
+                    props.active === "inicio"
+                      ? "navbar-item active"
+                      : "navbar-item"
+                  }
+                >
+                  Inicio
+                </AnchorLink>
+                <AnchorLink
+                  offset="65"
+                  href="#como_funciona"
+                  className={
+                    props.active === "como_funciona"
+                      ? "navbar-item active"
+                      : "navbar-item"
+                  }
+                >
+                  ¿Cómo funciona?
+                </AnchorLink>
+                <AnchorLink
+                  offset="65"
+                  href="#nuestra_empresa"
+                  className={
+                    props.active === "nuestra_empresa"
+                      ? "navbar-item active"
+                      : "navbar-item"
+                  }
+                >
+                  Nuestra empresa
+                </AnchorLink>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-    </nav>
-    <div id="mobileMenu">
-      <AnchorLink
-        onClick={Menu}
-        offset="50"
-        href="#inicio"
-        className={
-          props.active === "inicio" ? "navbar-item active" : "navbar-item"
-        }
-      >
-        Inicio
-      </AnchorLink>
-      <AnchorLink
-        onClick={Menu}
-        offset="50"
-        href="#como_funciona"
-        className={
-          props.active === "como_funciona"
-            ? "navbar-item active"
-            : "navbar-item"
-        }
-      >
-        ¿Cómo funciona?
-      </AnchorLink>
-      <AnchorLink
-        onClick={Menu}
-        offset="50"
-        href="#nuestra_empresa"
-        className={
-          props.active === "nuestra_empresa"
-            ? "navbar-item active"
-            : "navbar-item"
-        }
-      >
-        Nuestra empresa
-      </AnchorLink>
+      </nav>
+      {props.location.pathname !== "/" && (
+        <div id="mobileMenu">
+          <Link className="navbar-item" to="/" onClick={Menu}>
+            Inicio
+          </Link>
+          <Link className="navbar-item" to="/" onClick={Menu}>
+            ¿Cómo funciona?
+          </Link>
+          <Link className="navbar-item" to="/" onClick={Menu}>
+            Nuestra empresa
+          </Link>
+        </div>
+      )}
+      {props.location.pathname === "/" && (
+        <div id="mobileMenu">
+          <AnchorLink
+            onClick={Menu}
+            offset="50"
+            href="#inicio"
+            className={
+              props.active === "inicio" ? "navbar-item active" : "navbar-item"
+            }
+          >
+            Inicio
+          </AnchorLink>
+          <AnchorLink
+            onClick={Menu}
+            offset="50"
+            href="#como_funciona"
+            className={
+              props.active === "como_funciona"
+                ? "navbar-item active"
+                : "navbar-item"
+            }
+          >
+            ¿Cómo funciona?
+          </AnchorLink>
+          <AnchorLink
+            onClick={Menu}
+            offset="50"
+            href="#nuestra_empresa"
+            className={
+              props.active === "nuestra_empresa"
+                ? "navbar-item active"
+                : "navbar-item"
+            }
+          >
+            Nuestra empresa
+          </AnchorLink>
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 export default Navbar;

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Modal = props => {
-  const { modal, title, children, close, accept } = props;
+  const { modal, title, children, close, accept, disabled } = props;
 
   return (
     <div className={"modal" + modal}>
@@ -16,14 +16,22 @@ const Modal = props => {
         <footer className="modal-card-foot">
           <div className="columns is-centered">
             <div className="column is-5">
-              <button className="button is-primary btn-block" onClick={accept}>
-                { props.acceptText || "Aceptar" }
+              <button
+                className="button is-success btn-block"
+                onClick={accept}
+                disabled={disabled}
+              >
+                {props.acceptText || "Aceptar"}
               </button>
-              {props.cancel &&
-              <button className="button" onClick={close}>
-                {props.cancelText || "Cancelar" }
-              </button> 
-              }
+              <br />
+              {props.cancel && (
+                <button
+                  className="button is-text has-text-success btn-block"
+                  onClick={close}
+                >
+                  {props.cancelText || "Cancelar"}
+                </button>
+              )}
             </div>
           </div>
         </footer>

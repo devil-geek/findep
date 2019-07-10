@@ -26,7 +26,7 @@ const Steps = props => {
         <div className={isActive(props.isActive, 2)}>
           <div className="step">
             <span className="is-hidden-touch">
-              Paso 2: preguntas de verificación
+              Paso 2: Preguntas de verificación
             </span>
             <span className="is-hidden-desktop">
               {props.isActive === 2 ? "Preguntas de verificación" : "Paso 2"}
@@ -35,7 +35,7 @@ const Steps = props => {
         </div>
         <div className={isActive(props.isActive, 3)}>
           <div className="step">
-            <span className="is-hidden-touch">Paso 3: datos adicionales</span>
+            <span className="is-hidden-touch">Paso 3: Datos adicionales</span>
             <span className="is-hidden-desktop">
               {props.isActive === 3 ? "Datos adicionales" : "Paso 3"}
             </span>
@@ -44,7 +44,7 @@ const Steps = props => {
         <div className={isActive(props.isActive, 4)}>
           <div className="step">
             <span className="is-hidden-touch">
-              Paso 4: datos de tu ocupación
+              Paso 4: Datos de tu ocupación
             </span>
             <span className="is-hidden-desktop">
               {props.isActive === 4 ? "Datos de tu ocupación" : "Paso 4"}
