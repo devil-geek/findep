@@ -126,7 +126,7 @@ class IndexPage extends Component {
           <div className="column is-narrow">
             <div className="section is-size-7 is-pl-bottom">
               <p>
-                <strong>MICRONEGOCIO: CAT PROMEDIO: 176.6% Sin IVA. </strong>
+                <strong>MICRONEGOCIO: CAT PROMEDIO: 177.6% Sin IVA. </strong>
                 <br />
                 Para fines informativos y de comparación. Tasa de Interés Anual
                 Fija Máxima: 114.8% Plazo Mínimo: 26 semanas Plaza Máximo: 78
@@ -135,11 +135,11 @@ class IndexPage extends Component {
               <br />
               <p>
                 <strong>
-                  CREDIINMEDIATO SIMPLE: CAT PROMEDIO: 164.6% Sin IVA.{" "}
+                  CREDIINMEDIATO SIMPLE: CAT PROMEDIO: 171.4% Sin IVA.{" "}
                 </strong>
                 <br />
                 Para fines informativos y de comparación. Tasa de Interés Anual
-                Fija Máxima: 114.6% Plazo Mínimo: 12 quincenas Plaza Máximo: 48
+                Fija Máxima: 109.8% Plazo Mínimo: 12 quincenas Plaza Máximo: 48
                 quincenas.
               </p>
               <br />
