@@ -45,6 +45,8 @@ class Form2 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
+    console.log("Request", this.request);
+
     //let next = "/buro_error";
     let next = "/buro_aprobado";
 
@@ -111,7 +113,8 @@ class Form2 extends Component {
         automotrizCredito: automotrizCredito,
         autorizacion: "" + buro
       },
-      sucursal: suc
+      sucursal: suc,
+      url: this.props.url
     };
 
     try {
@@ -136,6 +139,7 @@ class Form2 extends Component {
       automotrizCredito,
       hipotecarioCredito
     } = this.state;
+
     return (
       <div className="columns">
         <div className="column">

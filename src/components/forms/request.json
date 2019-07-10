@@ -1,6 +1,6 @@
 {
   "folio": 0,
-  "idMedio": "22",
+  "idMedio": "3",
   "url": "",
   "sucursal": 0,
   "persona": 0,
@@ -10,7 +10,7 @@
   "apellidoMaterno": "",
   "fechaNacimiento": "",
   "genero": "",
-  "nacionalidad": "MEXICANA",
+  "nacionalidad": "",
   "pais": "",
   "nacimiento": {
     "estadoNacimiento": "",
@@ -73,5 +73,7 @@
   "rfc": "",
   "token": null,
   "cobertura": 0,
-  "estatus": ""
+  "estatus": "",
+  "avisoPrivacidad": true,
+  "terminos": true
 }

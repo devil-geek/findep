@@ -3,12 +3,9 @@ import Steps from "../components/steps";
 import Layout from "../components/layout";
 import icon from "../images/iconos/icono-ok.svg";
 import { navigate } from "gatsby";
+import ExpModal from "../components/forms/expirationModal";
 
 class BuroAprobado extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     if (!this.props.location) {
       navigate("/");
@@ -60,6 +57,11 @@ class BuroAprobado extends Component {
             </div>
           </div>
         </section>
+        {location &&
+          location.state &&
+          location.state.request && (
+            <ExpModal statue={location.state.request.status} />
+          )}
       </Layout>
     );
   }

@@ -12,6 +12,9 @@ h5 {
 }
 
 @include widescreen {
+  .is-size-6{
+    font-size: 1.125rem !important;
+  }
   .is-size-7 {
     font-size: 0.9rem !important;
   }

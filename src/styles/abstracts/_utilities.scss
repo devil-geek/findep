@@ -1,74 +1,88 @@
-.has-shadow{
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.26);
+.has-shadow {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.26);
 }
 
-.has-mlr-small{
-    margin: 0 .5rem;
+.has-mlr-small {
+  margin: 0 0.5rem;
 }
 
-.has-p-big{
-    padding: 2rem;
+.has-mt-big {
+  margin-top: 50px !important;
 }
 
-.is-ml{
-    &-left{
+.has-mt-medium {
+  margin-top: 32px !important;
+}
+
+.has-p-big {
+  padding: 2rem;
+}
+
+.is-ml {
+  &-left {
     margin-left: 0 !important;
-    }
-    &-right{
-        margin-right: 0 !important;
-    }
-    &-bottom{
-      margin-bottom: 0 !important;
-    }
+  }
+  &-right {
+    margin-right: 0 !important;
+  }
+  &-bottom {
+    margin-bottom: 0 !important;
+  }
 }
 
-.is-pl{
-    &-left{
-        padding-left: 0 !important;
-    }
-    &-right{
-        padding-right: 0 !important;
-    }
-    &-bottom{
-      padding-bottom: 0 !important;
-    }
+.is-pl {
+  &-left {
+    padding-left: 0 !important;
+  }
+  &-right {
+    padding-right: 0 !important;
+  }
+  &-bottom {
+    padding-bottom: 0 !important;
+  }
 }
 
 .icon-spin {
   -webkit-animation: icon-spin 2s infinite linear;
-          animation: icon-spin 2s infinite linear;
+  animation: icon-spin 2s infinite linear;
 }
 
 @-webkit-keyframes icon-spin {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(359deg);
-            transform: rotate(359deg);
+    transform: rotate(359deg);
   }
 }
 
 @keyframes icon-spin {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(359deg);
-            transform: rotate(359deg);
+    transform: rotate(359deg);
   }
 }
 
-.has-text-underlined{
+.has-text-underlined {
   text-decoration: underline;
 }
 
-.os{
-  font-family: 'Open Sans', sans-serif !important;
+.os {
+  font-family: "Open Sans", sans-serif !important;
 }
 
-.is-size-8{
-  font-size: .75rem !important;
+.is-size-8 {
+  font-size: 0.75rem !important;
+}
+
+@include mobile {
+  .has-mt-big {
+    margin-top: 20px !important;
+  }
 }

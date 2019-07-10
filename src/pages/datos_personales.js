@@ -10,8 +10,8 @@ const StepOne = ({ location }) => {
     <Layout location={location}>
       <Steps isActive={1} />
       <Amount location={location.state} />
-      <FormTitle step={1} title="REGISTRO" />
-      <Form1 location={location.state} />
+      <FormTitle step={1} title="DATOS PERSONALES" />
+      <Form1 location={location.state} url={location.href} />
     </Layout>
   );
 };

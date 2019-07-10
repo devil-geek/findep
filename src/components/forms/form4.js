@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { navigate } from "gatsby";
 import Axios from "axios";
+import moment from "moment";
 
 class Form4 extends Component {
   constructor(props) {
@@ -9,12 +10,14 @@ class Form4 extends Component {
       occupation: "",
       fuente: "",
       ingreso: "",
-      antiguedad: "",
-      antiguedadDom: "",
       empresa: "",
       telEmpresa: "",
       gastos: "",
-      dependientes: ""
+      dependientes: "",
+      a_mm: "",
+      a_yy: "",
+      ad_mm: "",
+      ad_yy: ""
     };
   }
 
@@ -43,6 +46,7 @@ class Form4 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
+    console.log("Request", this.request);
     navigate("/gracias");
   };
 
@@ -51,8 +55,10 @@ class Form4 extends Component {
       occupation,
       fuente,
       ingreso,
-      antiguedad,
-      antiguedadDom,
+      a_mm,
+      a_yy,
+      ad_mm,
+      ad_yy,
       empresa,
       telEmpresa,
       gastos,
@@ -66,7 +72,7 @@ class Form4 extends Component {
         fuentesIngreso: fuente,
         ingresoMensual: ingreso,
         datosEmpresa: {
-          antiguedadEmpresa: antiguedad,
+          antiguedadEmpresa: `01/${a_mm}/${a_yy}`,
           nombreEmpresa: empresa,
           telefonoEmpresa: telEmpresa
         }
@@ -76,9 +82,10 @@ class Form4 extends Component {
       domicilio: [
         {
           ...this.request.domicilio[0],
-          antiguedadDomicilio: antiguedadDom
+          antiguedadDomicilio: `01/${ad_mm}/${ad_yy}`
         }
-      ]
+      ],
+      url: this.props.url
     };
 
     try {
@@ -93,17 +100,54 @@ class Form4 extends Component {
     }
   };
 
+  getMonths = () => {
+    let months = [];
+    for (let i = 1; i <= 12; i++) {
+      let m = i;
+      if (m < 10) {
+        m = "0" + i;
+      }
+      months.push(
+        <option key={m} value={m}>
+          {m}
+        </option>
+      );
+    }
+
+    return months;
+  };
+
+  getYears = () => {
+    let years = [];
+    const minY = moment()
+      .subtract(30, "years")
+      .year();
+    const maxY = moment().year();
+
+    for (let i = minY; i <= maxY; i++) {
+      years.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+
+    return years;
+  };
+
   render() {
     const {
       occupation,
       fuente,
       ingreso,
-      antiguedad,
-      antiguedadDom,
       empresa,
       telEmpresa,
       gastos,
-      dependientes
+      dependientes,
+      a_mm,
+      a_yy,
+      ad_mm,
+      ad_yy
     } = this.state;
     return (
       <div className="columns">
@@ -163,10 +207,10 @@ class Form4 extends Component {
                         </option>
                         <option value="SALARIO">Salario</option>
                         <option value="HONORARIOS">Honorarios</option>
+                        <option value="NEGOCIO">Negocio</option>
                         <option value="RENTA">Renta</option>
-                        <option value="INMUEBLES">Inmuebles</option>
-                        <option value="PENSIÓN">Pensión</option>
-                        <option value="JUBILACIÓN">Jubilación</option>
+                        <option value="PENSION">Pensión</option>
+                        <option value="JUBILACION">Jubilación</option>
                         <option value="OTRO">Otro</option>
                       </select>
                     </div>
@@ -195,31 +239,40 @@ class Form4 extends Component {
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="col">
-                    *Antigüedad en empleo / micronegocio actual
+                    *Fecha de inicio en empleo / micronegocio
                   </label>
-                  <div className="control is-expanded">
-                    <div className="select is-fullwidth">
-                      <select
-                        name="antiguedad"
-                        id="antiguedad"
-                        required
-                        value={antiguedad}
-                        onChange={this.handleInputChange}
-                      >
-                        <option value="">Selecciona una opción</option>
-                        <option value="MENOS DE 1 AÑO">Menos de 1 año</option>
-                        <option value="1 AÑO">1 año</option>
-                        <option value="2 AÑOS">2 años</option>
-                        <option value="3 AÑOS">3 años</option>
-                        <option value="4 AÑOS">4 años</option>
-                        <option value="5 AÑOS">5 años</option>
-                        <option value="6 AÑOS">6 años</option>
-                        <option value="7 AÑOS">7 años</option>
-                        <option value="8 AÑOS">8 años</option>
-                        <option value="9 AÑOS">9 años</option>
-                        <option value="10 AÑOS">10 años</option>
-                        <option value="MÁS DE 10 AÑOS">Más de 10 años</option>
-                      </select>
+                  <div className="columns is-mobile">
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="a_mm"
+                            id="a_mm"
+                            required
+                            value={a_mm}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Mes</option>
+                            {this.getMonths()}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="a_yy"
+                            id="a_yy"
+                            required
+                            value={a_yy}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Año</option>
+                            {this.getYears()}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -268,31 +321,40 @@ class Form4 extends Component {
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="antiguedadDom">
-                    *Antigüedad en el domicilio actual
+                    *Fecha de inicio en el domicilio actual
                   </label>
-                  <div className="control is-expanded">
-                    <div className="select is-fullwidth">
-                      <select
-                        name="antiguedadDom"
-                        id="antiguedadDom"
-                        value={antiguedadDom}
-                        required
-                        onChange={this.handleInputChange}
-                      >
-                        <option value="">Selecciona una opción</option>
-                        <option value="MENOS DE 1 AÑO">Menos de 1 año</option>
-                        <option value="1 AÑO">1 año</option>
-                        <option value="2 AÑOS">2 años</option>
-                        <option value="3 AÑOS">3 años</option>
-                        <option value="4 AÑOS">4 años</option>
-                        <option value="5 AÑOS">5 años</option>
-                        <option value="6 AÑOS">6 años</option>
-                        <option value="7 AÑOS">7 años</option>
-                        <option value="8 AÑOS">8 años</option>
-                        <option value="9 AÑOS">9 años</option>
-                        <option value="10 AÑOS">10 años</option>
-                        <option value="MÁS DE 10 AÑOS">Más de 10 años</option>
-                      </select>
+                  <div className="columns is-mobile">
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="ad_mm"
+                            id="ad_mm"
+                            required
+                            value={ad_mm}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Mes</option>
+                            {this.getMonths()}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="column is-6">
+                      <div className="control is-expanded">
+                        <div className="select is-fullwidth">
+                          <select
+                            name="ad_yy"
+                            id="ad_yy"
+                            required
+                            value={ad_yy}
+                            onChange={this.handleInputChange}
+                          >
+                            <option value="">Año</option>
+                            {this.getYears()}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -361,8 +423,10 @@ class Form4 extends Component {
                   !occupation ||
                   !fuente ||
                   !ingreso ||
-                  !antiguedad ||
-                  !antiguedadDom ||
+                  !a_mm ||
+                  !a_yy ||
+                  !ad_mm ||
+                  !ad_yy ||
                   !empresa ||
                   !telEmpresa ||
                   !gastos ||

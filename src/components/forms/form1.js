@@ -3,9 +3,10 @@ import Modal from "../modal";
 import { navigate } from "gatsby";
 import moment from "moment";
 import Axios from "axios";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaMapMarkedAlt, FaAddressCard } from "react-icons/fa";
 import req from "./request.json";
 import Terms from "../terms";
+import Privacy from "../privacy";
 
 class Form1 extends Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class Form1 extends Component {
       privacyModal: "",
       termsModal: "",
       countryModal: "",
+      ageModal: "",
+      rfcModal: "",
       privacy: false,
       terms: false,
       street: "",
@@ -35,7 +38,8 @@ class Form1 extends Component {
       noCoverModal: "",
       del: "",
       city: "",
-      errorDate: ""
+      errorDate: "",
+      termsApoyo: false
     };
 
     this.request = req;
@@ -95,7 +99,7 @@ class Form1 extends Component {
 
   handleSubmit = async e => {
     await this.makeRequest();
-
+    console.log("Request", this.request)
     const { callMe } = this.props.location;
     if (callMe) {
       navigate("/gracias");
@@ -163,7 +167,8 @@ class Form1 extends Component {
     if (errorDate !== "") {
       this.setState({
         errorDate,
-        rfc: ""
+        rfc: "",
+        ageModal: " is-active"
       });
     } else {
       this.setState({
@@ -194,7 +199,9 @@ class Form1 extends Component {
         fechaNacimiento: `${dd}/${mm}/${yy}`
       });
 
-      if (rfcResponse.data.rfc !== "X") {
+      if (rfcResponse.data.rfc === "REGISTRADO") {
+        this.openModal("rfc");
+      } else {
         this.setState({ rfc: rfcResponse.data.rfc });
       }
     }
@@ -221,7 +228,7 @@ class Form1 extends Component {
   };
 
   makeRequest = async () => {
-    const { monto, occupation, period, term, callMe } = this.props.location;
+    const { monto, occupation, period, plazo, callMe } = this.props.location;
     const {
       name,
       sname,
@@ -248,7 +255,7 @@ class Form1 extends Component {
         ...this.request.datosCredito,
         monto,
         periodo: period,
-        plazo: term,
+        plazo: plazo,
         dedicacion: occupation
       },
       nombre: name.toUpperCase(),
@@ -278,7 +285,8 @@ class Form1 extends Component {
           tipoTelefono: "M"
         }
       ],
-      datosBuro: null
+      datosBuro: null,
+      url: this.props.url
     };
 
     let url = process.env.GATSBY_FISA_ENDPOINT;
@@ -381,13 +389,17 @@ class Form1 extends Component {
       del,
       city,
       cover,
-      gen
+      gen,
+      ageModal,
+      termsApoyo,
+      rfcModal
     } = this.state;
+    
     return (
       <div className="columns">
         <div className="column">
           <div className="card-content form">
-            <h2 className="has-text-success is-size-6 subtitle is-marginless">
+            <h2 className="has-text-success is-size-6 subtitle is-marginless os">
               Datos personales
             </h2>
             <p className="is-size-7 has-text-grey-light">
@@ -683,7 +695,7 @@ class Form1 extends Component {
 
             <br />
 
-            <h2 className="has-text-success is-size-6 subtitle is-marginless">
+            <h2 className="has-text-success is-size-6 subtitle is-marginless os has-mt-big">
               Datos de domicilio
             </h2>
             <p className="is-size-7 has-text-grey-light">
@@ -693,7 +705,7 @@ class Form1 extends Component {
             <br />
 
             <div className="columns is-multiline">
-              <div className="column is-6 is-12-mobile">
+              <div className="column is-3 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="cp">
                     * Código postal
@@ -745,13 +757,29 @@ class Form1 extends Component {
                       </select>
                     </div>
                   </div>
-                  <p className="help">
-                    ¿No encuentras tu colonia? Descubre por qué
+                  <p className="help is-hidden-tablet">
+                    ¿No encuentras tu colonia?
+                    <button
+                      className="button is-text has-text-link is-size-7 is-paddingless help"
+                      onClick={() => this.openModal("noCover")}
+                    >
+                      Descubre por qué
+                    </button>{" "}
                   </p>
                 </div>
               </div>
-
-              <div className="column is-6 is-12-mobile">
+              <div className="column is-3 is-hidden-mobile">
+                <p className="help has-mt-medium">
+                  ¿No encuentras tu colonia?
+                  <button
+                    className="button is-text has-text-link is-size-7 is-paddingless"
+                    onClick={() => this.openModal("noCover")}
+                  >
+                    Descubre por qué
+                  </button>{" "}
+                </p>
+              </div>
+              <div className="column is-4 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="del">
                     Delegación / Municipio
@@ -768,7 +796,7 @@ class Form1 extends Component {
                   </div>
                 </div>
               </div>
-              <div className="column is-6 is-12-mobile">
+              <div className="column is-4 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="city">
                     Ciudad / Estado
@@ -785,7 +813,7 @@ class Form1 extends Component {
                   </div>
                 </div>
               </div>
-              <div className="column is-6 is-12-mobile">
+              <div className="column is-5 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="street">
                     * Calle
@@ -806,7 +834,7 @@ class Form1 extends Component {
                   </div>
                 </div>
               </div>
-              <div className="column is-6 is-12-mobile">
+              <div className="column is-4 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="noe">
                     * Número exterior
@@ -827,7 +855,7 @@ class Form1 extends Component {
                   </div>
                 </div>
               </div>
-              <div className="column is-6 is-12-mobile">
+              <div className="column is-3 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="noi">
                     Número interior
@@ -838,7 +866,7 @@ class Form1 extends Component {
                       type="text"
                       name="noi"
                       id="noi"
-                      placeholder="Escribe el número interior"
+                      placeholder="Número interior"
                       onChange={this.handleInputChange}
                       value={noi}
                       disabled={!street}
@@ -923,7 +951,7 @@ class Form1 extends Component {
               title="Aviso de privacidad"
               accept={() => this.accept("privacy")}
             >
-              aviso de privacidad
+              <Privacy />
             </Modal>
             <Modal
               modal={countryModal}
@@ -934,15 +962,17 @@ class Form1 extends Component {
               }}
               acceptText="Cerrar y cancelar la solicitud"
             >
-              <div className="has-text-centered has-text-primary">
-                <FaMapMarkedAlt size="3rem" />
+              <div className="has-text-centered">
+                <div className="has-text-primary">
+                  <FaMapMarkedAlt size="4rem" />
+                </div>
+                <br />
+                Para poder obtener un préstamo con nosotros es indispensable ser
+                mexicano.
+                <br />
+                <br />
+                <strong>De antemano, agradecemos tu preferencia.</strong>
               </div>
-              <br />
-              Para poder obtener un préstamo con nosotros es indispensable ser
-              mexicano.
-              <br />
-              <br />
-              <strong>De antemano, agradecemos tu preferencia.</strong>
             </Modal>
 
             <Modal
@@ -952,39 +982,115 @@ class Form1 extends Component {
               accept={() => {
                 navigate("/");
               }}
+              acceptText="Enviar datos a Apoyo Económico"
+              disabled={!termsApoyo}
+              cancel={() => {
+                navigate("/");
+              }}
+              cancelText="Cerrar y cancelar la solicitud"
+            >
+              <div className="has-text-centered">
+                <div className="has-text-primary">
+                  <FaMapMarkedAlt size="4rem" />
+                </div>
+                <br />
+                Por el momento{" "}
+                <strong>no contamos con cobertura en tu residencia.</strong>
+                <br />
+                <br />
+                Sin importar dónde estés y porque eres importante para nosotros,
+                el dinero que necesites te lo damos en nuestra empresa hermana
+                <strong className="has-text-warning"> Apoyo Económico</strong>.
+                <br />
+                <br />
+                <div className="columns is-centered">
+                  <div className="column is-6 has-text-left">
+                    <div className="field">
+                      <label className="check-container">
+                        Acepto{" "}
+                        <a
+                          href="https://www.apoyoeconomico.com.mx/uso-privacidad-sitio.html"
+                          target="_blank"
+                          className="has-text-underlined is-inline is-paddingless has-text-primary"
+                          rel="noopener noreferrer"
+                        >
+                          Términos y Condiciones
+                        </a>{" "}
+                        del{" "}
+                        <a
+                          href="https://www.apoyoeconomico.com.mx/aviso-privacidad.html"
+                          target="_blank"
+                          className="has-text-underlined is-inline is-paddingless has-text-primary"
+                          rel="noopener noreferrer"
+                        >
+                          {" "}
+                          Aviso de Privacidad{" "}
+                        </a>{" "}
+                        de Apoyo Económico Familiar., S.A. de C.V., SOFOM,
+                        E.N.R.
+                        <br />
+                        <input
+                          type="checkbox"
+                          name="termsApoyo"
+                          required
+                          checked={termsApoyo}
+                          onChange={this.handleInputChange}
+                        />
+                        <span className="checkmark checkbox" />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <strong>De antemano, agradecemos tu preferencia.</strong>
+              </div>
+            </Modal>
+
+            <Modal
+              modal={ageModal}
+              close={() => this.closeModal("ageModal")}
+              title="¡LO SENTIMOS!"
+              accept={() => {
+                navigate("/");
+              }}
               acceptText="Cerrar y cancelar la solicitud"
             >
-              <div className="has-text-centered has-text-primary">
-                <FaMapMarkedAlt size="3rem" />
+              <div className="has-text-centered">
+                <div className="has-text-primary">
+                  <FaAddressCard size="4rem" />
+                </div>
+                <br />
+                {errorDate}
+                <br />
+                <br />
+                <strong>De antemano, agradecemos tu preferencia.</strong>
               </div>
-              <br />
-              Por el momento{" "}
-              <strong>no contamos con cobertura en tu residencia.</strong>
-              <br />
-              Sin importar dónde estés y porque eres importante para nosotros,
-              el dinero que necesites te lo damos en nuestra empresa hermana
-              <strong className="has-text-warning"> Apoyo Económico</strong>.
-              <br />
-              <br />
-              <div className="field">
-                <label className="check-container">
-                  Acepto el aviso de privacidad
-                  <br />
-                  <input
-                    type="checkbox"
-                    name="privacy"
-                    required
-                    checked={privacy}
-                    onChange={this.handleInputChange}
-                    disabled={!noe}
-                  />
-                  <span className="checkmark checkbox" />
-                </label>
-              </div>
-              <br />
-              <br />
-              <strong>De antemano, agradecemos tu preferencia.</strong>
             </Modal>
+
+            <Modal
+              modal={rfcModal}
+              close={() => {
+                navigate("/");
+              }}
+              title="¡LO SENTIMOS!"
+              accept={() => {
+                navigate("/");
+              }}
+              acceptText="Cerrar y cancelar la solicitud"
+            >
+              <div className="has-text-centered">
+                <div className="has-text-primary">
+                  <FaAddressCard size="4rem" />
+                </div>
+                <br />
+                Tu RFC ya aparece registrado en nuestro sistema y por el momento
+                no podemos continuar con el proceso. De antemano, agradecemos tu
+                preferencia.
+                <br />
+                <br />
+                <strong>De antemano, agradecemos tu preferencia.</strong>
+              </div>
+            </Modal>
+
           </div>
         </div>
       </div>
