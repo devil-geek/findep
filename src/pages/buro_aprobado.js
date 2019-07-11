@@ -12,6 +12,7 @@ class BuroAprobado extends Component {
       return;
     }
     window.dataLayer.push({ event: "preaprobado-solicitud-corta" });
+    window.fbq("track", "CompleteRegistration");
   }
 
   render() {

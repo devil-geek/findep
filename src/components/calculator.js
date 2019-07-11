@@ -33,6 +33,11 @@ class Calculator extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     const { occupation } = this.state;
+
+    if (target.validity.patternMismatch) {
+      return;
+    }
+
     await this.setState({
       [name]: value,
       amountValid: true
@@ -254,16 +259,15 @@ class Calculator extends Component {
               <div className="control">
                 <input
                   className="input"
-                  type="number"
+                  type="text"
                   name="amount"
                   id="amount"
-                  min={occupation ? rules.monto[occupation].min : 2500}
-                  max={occupation ? rules.monto[occupation].max : 35000}
                   placeholder="$5,000"
                   value={amount}
                   onChange={this.handleInputChange}
                   disabled={!occupation}
                   required
+                  pattern="\d*"
                 />
               </div>
               {!amountValid && (
@@ -328,7 +332,7 @@ class Calculator extends Component {
                     name="plazo"
                     id="plazo"
                     onChange={this.handleInputChange}
-                    disabled={!period}
+                    disabled={!period || !amountValid}
                   >
                     <option value="">Selecciona un plazo</option>
                     {period && this.getOptions()}

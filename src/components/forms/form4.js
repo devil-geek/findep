@@ -285,13 +285,14 @@ class Form4 extends Component {
                   <div className="control">
                     <input
                       className="input"
-                      type="number"
+                      type="text"
                       name="ingreso"
                       id="ingreso"
                       value={ingreso}
                       placeholder="Este monto es el total que recibes"
                       required
                       onChange={this.handleInputChange}
+                      pattern="\d*"
                     />
                   </div>
                 </div>
@@ -427,13 +428,14 @@ class Form4 extends Component {
                   <div className="control">
                     <input
                       className="input"
-                      type="number"
+                      type="text"
                       name="gastos"
                       id="gastos"
                       value={gastos}
                       placeholder="Este monto es el total que gastas"
                       required
                       onChange={this.handleInputChange}
+                      pattern="\d*"
                     />
                   </div>
                 </div>

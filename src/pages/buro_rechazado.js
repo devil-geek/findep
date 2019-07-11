@@ -7,6 +7,7 @@ import { navigate } from "gatsby";
 class BuroRechazado extends Component {
   componentDidMount() {
     window.dataLayer.push({ event: "rechazado-solicitud-corta" });
+    window.fbq("track", "Purchase");
   }
   render() {
     const { location } = this.props;

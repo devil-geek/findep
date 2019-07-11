@@ -227,7 +227,7 @@ class Form1 extends Component {
     }
   };
 
-  makeRequest = async () => {
+  makeRequest = async toAef => {
     const { monto, occupation, period, plazo, callMe } = this.props.location;
     const {
       name,
@@ -296,6 +296,20 @@ class Form1 extends Component {
     } else {
       url += "?paso=dos";
     }
+
+    if (toAef) {
+      url = process.env.GATSBY_AEF_ENDPOINT;
+      this.request = {
+        ...this.request,
+        datosCredito: {
+          ...this.request.datosCredito,
+          condicionesAef: true,
+          condicionesFisa: false,
+          idEmpresa: "19"
+        }
+      };
+    }
+
     try {
       const res = await Axios.post(url, this.request);
       if (res.data.status !== undefined) {
@@ -359,6 +373,11 @@ class Form1 extends Component {
     }
 
     return years;
+  };
+
+  sendToAef = async () => {
+    await this.makeRequest("toAef");
+    navigate("/");
   };
 
   render() {
@@ -989,9 +1008,7 @@ class Form1 extends Component {
                 return;
               }}
               title="¡LO SENTIMOS!"
-              accept={() => {
-                navigate("/");
-              }}
+              accept={() => this.sendToAef()}
               acceptText="Enviar datos a Apoyo Económico"
               disabled={!termsApoyo}
               cancel={() => {

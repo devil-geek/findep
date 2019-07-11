@@ -7,6 +7,7 @@ import { navigate } from "gatsby";
 class BuroError extends Component {
   componentDidMount() {
     window.dataLayer.push({ event: "error-solicitud-corta" });
+    window.fbq("track", "ViewContent");
   }
   render() {
     const { location } = this.props;

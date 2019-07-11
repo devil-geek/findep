@@ -1,31 +1,56 @@
-.button{
+.button {
   border-radius: 10px;
   height: 2.5em;
 }
-.btn{
-  &-block{
+.btn {
+  &-block {
     width: 100%;
   }
-  &-round{
+  &-round {
     border-radius: 50%;
     width: 3em;
     height: 3em;
   }
-  &-outline{
+  &-outline {
     color: #eee;
     background: transparent;
     border: 3px solid #eee;
     &:hover,
     &:active,
-    &:focus{
+    &:focus {
       color: #fff;
       border: 3px solid #fff;
     }
   }
+  &-share {
+    color: #fff;
+    &:hover,
+    &:focus,
+    &:active {
+      position: relative;
+      top: 2px;
+      box-shadow: none;
+      outline: none;
+      color: #eeeeee;
+
+    }
+    &.twitter {
+      background: #55acee;
+    }
+    &.facebook {
+      background: #3b5998;
+    }
+    &.linkedin {
+      background: #4875b4;
+    }
+    &.email {
+      background: #444444;
+    }
+  }
 }
 
-@include widescreen{
-  .button{
+@include widescreen {
+  .button {
     font-size: 1.25rem;
   }
 }
