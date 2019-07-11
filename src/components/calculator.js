@@ -351,6 +351,7 @@ class Calculator extends Component {
                   </small>
                   <br />
                   <button
+                    id="consulta-tabla-amortizacion"
                     onClick={() => this.openModal("amortModal")}
                     className="button is-text has-text-link is-size-7"
                   >
@@ -360,6 +361,7 @@ class Calculator extends Component {
                 <br />
                 <div className="has-text-centered">
                   <button
+                    id="solicitud-online"
                     disabled={!pay}
                     onClick={this.handleSubmit}
                     className="button is-success btn-block has-text-weight-bold"
@@ -369,6 +371,7 @@ class Calculator extends Component {
                   <br />
                   <br />
                   <button
+                    id="llamada-telefonica"
                     onClick={this.callMe}
                     className="button is-text has-text-danger is-size-7"
                   >

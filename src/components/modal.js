@@ -1,7 +1,7 @@
 import React from "react";
 
 const Modal = props => {
-  const { modal, title, children, close, accept, disabled } = props;
+  const { modal, title, children, close, accept, disabled, idBtn, idBtnCancel } = props;
 
   return (
     <div className={"modal" + modal}>
@@ -17,6 +17,7 @@ const Modal = props => {
           <div className="columns is-centered">
             <div className="column is-5">
               <button
+                id={idBtn}
                 className="button is-success btn-block"
                 onClick={accept}
                 disabled={disabled}
@@ -26,6 +27,7 @@ const Modal = props => {
               <br />
               {props.cancel && (
                 <button
+                  id={idBtnCancel}
                   className="button is-text has-text-success btn-block"
                   onClick={props.cancel}
                 >

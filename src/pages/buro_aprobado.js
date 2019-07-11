@@ -11,6 +11,7 @@ class BuroAprobado extends Component {
       navigate("/");
       return;
     }
+    window.dataLayer.push({ event: "preaprobado-solicitud-corta" });
   }
 
   render() {
@@ -46,6 +47,7 @@ class BuroAprobado extends Component {
             <div className="columns is-centered">
               <div className="column is-5">
                 <button
+                  id="solicitud-online-2A"
                   onClick={() => {
                     navigate("/datos_adicionales", { state: location.state });
                   }}

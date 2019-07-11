@@ -374,6 +374,7 @@ class Form2 extends Component {
               <div className="column is-6">
                 <div className="has-text-centered">
                   <button
+                    id="solicitud-online-2"
                     onClick={this.handleSubmit}
                     disabled={
                       !sucInfo ||

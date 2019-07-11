@@ -237,7 +237,11 @@ class Form4 extends Component {
                       >
                         <option value="">Selecciona una ocupación</option>
                         {ocupaciones.map(item => {
-                          return <option key={item.id} value={item.id}>{item.label}</option>
+                          return (
+                            <option key={item.id} value={item.id}>
+                              {item.label}
+                            </option>
+                          );
                         })}
                       </select>
                     </div>
@@ -477,6 +481,7 @@ class Form4 extends Component {
               <div className="column is-6">
                 <div className="has-text-centered">
                   <button
+                    id="solicitud-online-4"
                     disabled={
                       !occupation ||
                       !fuente ||

@@ -930,6 +930,7 @@ class Form1 extends Component {
               <div className="column is-6">
                 <div className="has-text-centered">
                   <button
+                    id="solicitud-online-1"
                     disabled={!privacy || !terms}
                     onClick={this.handleSubmit}
                     className="button is-success btn-block has-text-weight-bold"
@@ -967,6 +968,7 @@ class Form1 extends Component {
                 navigate("/");
               }}
               acceptText="Cerrar y cancelar la solicitud"
+              idBtn="boton-cerrar-extranjero"
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
@@ -996,6 +998,7 @@ class Form1 extends Component {
                 navigate("/");
               }}
               cancelText="Cerrar y cancelar la solicitud"
+              idBtnCancel="boton-cerrar-cobertura"
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
