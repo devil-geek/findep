@@ -332,7 +332,7 @@ class Calculator extends Component {
                     name="plazo"
                     id="plazo"
                     onChange={this.handleInputChange}
-                    disabled={!period || !amountValid}
+                    disabled={!period || !amountValid || !amount}
                   >
                     <option value="">Selecciona un plazo</option>
                     {period && this.getOptions()}
@@ -368,7 +368,7 @@ class Calculator extends Component {
                     id="solicitud-online"
                     disabled={!pay}
                     onClick={this.handleSubmit}
-                    className="button is-success btn-block has-text-weight-bold"
+                    className="button is-warning btn-block has-text-weight-bold"
                   >
                     Continuar solicitud online
                   </button>

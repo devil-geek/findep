@@ -31,8 +31,7 @@ class BuroAprobado extends Component {
             <p className="is-size-5">
               ¡Ya tienes pre aprobado hasta <br />
               <strong className="is-size-2">
-                ${location.state && location.state.amount}
-                !*
+                $12,000.00!*
               </strong>
             </p>
             <br />
@@ -52,7 +51,7 @@ class BuroAprobado extends Component {
                   onClick={() => {
                     navigate("/datos_adicionales", { state: location.state });
                   }}
-                  className="button is-success btn-block has-text-weight-bold"
+                  className="button is-warning btn-block has-text-weight-bold"
                 >
                   Continuar
                 </button>

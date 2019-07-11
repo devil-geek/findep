@@ -18,7 +18,7 @@ const Modal = props => {
             <div className="column is-5">
               <button
                 id={idBtn}
-                className="button is-success btn-block"
+                className="button is-warning btn-block"
                 onClick={accept}
                 disabled={disabled}
               >
@@ -28,7 +28,7 @@ const Modal = props => {
               {props.cancel && (
                 <button
                   id={idBtnCancel}
-                  className="button is-text has-text-success btn-block"
+                  className="button is-text has-text-warning btn-block"
                   onClick={props.cancel}
                 >
                   {props.cancelText || "Cancelar"}

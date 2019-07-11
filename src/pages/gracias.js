@@ -130,7 +130,7 @@ const Gracias = ({ location }) => (
                       target="_blank"
                       rel="noopener noreferrer"
                       href={shareUrl}
-                      className="button is-success"
+                      className="button is-warning"
                     >
                       Visita nuestro sitio web
                     </a>

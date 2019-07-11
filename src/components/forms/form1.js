@@ -952,7 +952,7 @@ class Form1 extends Component {
                     id="solicitud-online-1"
                     disabled={!privacy || !terms}
                     onClick={this.handleSubmit}
-                    className="button is-success btn-block has-text-weight-bold"
+                    className="button is-warning btn-block has-text-weight-bold"
                   >
                     {this.props.location && this.props.location.callMe
                       ? "Enviar y terminar"
@@ -1016,6 +1016,7 @@ class Form1 extends Component {
               }}
               cancelText="Cerrar y cancelar la solicitud"
               idBtnCancel="boton-cerrar-cobertura"
+              idBtn="boton-enviar-datos-AEF"
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">

@@ -25,7 +25,7 @@ const BuroError = ({ location }) => {
                 onClick={() => {
                   navigate("/");
                 }}
-                className="button is-success btn-block has-text-weight-bold"
+                className="button is-warning btn-block has-text-weight-bold"
               >
                 Enviar datos y finalizar
               </button>

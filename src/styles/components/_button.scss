@@ -1,6 +1,14 @@
 .button {
   border-radius: 10px;
   height: 2.5em;
+  &.is-warning{
+    color: #fff;
+    &:hover,
+    &:active,
+    &:focus{
+      color:#eee; 
+    }
+  }
 }
 .btn {
   &-block {

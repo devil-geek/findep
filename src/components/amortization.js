@@ -96,7 +96,7 @@ const Amortization = props => {
                 </tr>
               );
             })}
-          <tr className="has-background-primary">
+          <tr className="has-background-success">
             <td
               className="has-text-white has-text-weight-semibold right"
               colSpan="9"

@@ -231,7 +231,7 @@ class Form3 extends Component {
                       telDom.length < 10
                     }
                     onClick={this.handleSubmit}
-                    className="button is-success btn-block has-text-weight-bold"
+                    className="button is-warning btn-block has-text-weight-bold"
                   >
                     Guardar datos y continuar
                   </button>

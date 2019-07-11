@@ -204,7 +204,7 @@ class IndexPage extends Component {
               <AnchorLink
                 offset="75"
                 href="#calcular"
-                className="button is-success btn-block has-text-weight-bold"
+                className="button is-warning btn-block has-text-weight-bold"
               >
                 ¡Deseo solicitar un préstamo!
               </AnchorLink>

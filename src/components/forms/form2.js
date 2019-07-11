@@ -146,7 +146,7 @@ class Form2 extends Component {
           <div className="card-content form">
             <div className="field">
               <label className="check-container">
-                Autorizo consulta de buró de crédito
+                <strong>Autorizo consulta de buró de crédito</strong>
                 <input
                   type="checkbox"
                   name="buro"
@@ -387,7 +387,7 @@ class Form2 extends Component {
                         ccNumber &&
                         ccNumber.length < 4)
                     }
-                    className="button is-success btn-block has-text-weight-bold"
+                    className="button is-warning btn-block has-text-weight-bold"
                   >
                     Consultar buró y continuar
                   </button>

@@ -382,7 +382,7 @@ class Form4 extends Component {
               <div className="column is-6 is-12-mobile">
                 <div className="field">
                   <label className="label" htmlFor="antiguedadDom">
-                    *Fecha de inicio en el domicilio actual
+                    *Antigüedad en el domicilio actual
                   </label>
                   <div className="columns is-mobile">
                     <div className="column is-6">
@@ -498,7 +498,7 @@ class Form4 extends Component {
                       !dependientes
                     }
                     onClick={this.handleSubmit}
-                    className="button is-success btn-block has-text-weight-bold"
+                    className="button is-warning btn-block has-text-weight-bold"
                   >
                     Finalizar solicitud
                   </button>
