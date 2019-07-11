@@ -4,7 +4,7 @@ module.exports = {
     author: "Carlos Ocejo - Common Sense People",
     description:
       "Préstamos personales, tu tienes el plan, nosotros el préstamo que necesitas. En Financiera independencia te ofrecemos créditos sin aval, sin garantías, fácil, rápido y sin tanto rollo.",
-    keywords: `Web developer, Web, Developer, CSS, HTML, JS, Javascript, Gatsby, Bulma Developer, CSS3, HTML5, Seo, Starter`,
+    keywords: `Préstamos, Crédito, Financiera`,
     siteUrl: "https://www.independencia.com.mx/"
   },
   plugins: [
@@ -24,8 +24,8 @@ module.exports = {
         name: "Makefolio",
         short_name: "Makefolio",
         start_url: "/",
-        background_color: "#2980b9",
-        theme_color: "#2980b9",
+        background_color: "#D62624",
+        theme_color: "#D62624",
         display: "standalone",
         icon: "src/images/gatsby-icon.png",
         orientation: "portrait"

@@ -47,8 +47,7 @@ class Form2 extends Component {
     await this.makeRequest();
     console.log("Request", this.request);
 
-    //let next = "/buro_error";
-    let next = "/buro_aprobado";
+    let next = "/buro_error";
 
     if (this.request.status === "APROBADO") {
       next = "/buro_aprobado";

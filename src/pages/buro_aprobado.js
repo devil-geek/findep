@@ -31,7 +31,7 @@ class BuroAprobado extends Component {
             <p className="is-size-5">
               ¡Ya tienes pre aprobado hasta <br />
               <strong className="is-size-2">
-                $12,000.00!*
+                $12,000!*
               </strong>
             </p>
             <br />
