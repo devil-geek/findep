@@ -972,7 +972,7 @@ class Form1 extends Component {
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
-                  <FaMapMarkedAlt size="4rem" />
+                  <FaMapMarkedAlt size="4em" />
                 </div>
                 <br />
                 Para poder obtener un préstamo con nosotros es indispensable ser
@@ -1002,7 +1002,7 @@ class Form1 extends Component {
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
-                  <FaMapMarkedAlt size="4rem" />
+                  <FaMapMarkedAlt size="4em" />
                 </div>
                 <br />
                 Por el momento{" "}
@@ -1071,7 +1071,7 @@ class Form1 extends Component {
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
-                  <FaAddressCard size="4rem" />
+                  <FaAddressCard size="4em" />
                 </div>
                 <br />
                 {errorDate}
@@ -1094,7 +1094,7 @@ class Form1 extends Component {
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">
-                  <FaAddressCard size="4rem" />
+                  <FaAddressCard size="4em" />
                 </div>
                 <br />
                 Tu RFC ya aparece registrado en nuestro sistema y por el momento

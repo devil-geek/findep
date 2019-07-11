@@ -18,7 +18,7 @@ const ExpModal = props => {
     >
       <div className="has-text-centered">
         <div className="has-text-primary">
-          <FaUserClock size="4rem" />
+          <FaUserClock size="4em" />
         </div>
         <br />
         Estimado cliente te informamos que tu sesión ha expirado, hemos revisado

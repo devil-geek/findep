@@ -14,7 +14,7 @@ const Amortization = props => {
     return null;
   }
   let sum = { renta: 0 };
-  
+
   if (props.data.amortizacion.length > 0) {
     sum = props.data.amortizacion.reduce((a, b) => ({
       renta: a.renta + b.renta
@@ -111,11 +111,12 @@ const Amortization = props => {
           * Comisiones:{" "}
         </p>
         <p className="is-size-7">
-          <strong>Por apertura:</strong> 6.5% sobre el monto de crédito.
+          <strong>Por apertura:</strong> 6.5% sobre el monto de
+          crédito/periodicidad: A la fecha de firma.
         </p>
         <p className="is-size-7">
           <strong>Gastos de investigación:</strong> 6.5% sobre el monto de
-          crédito.
+          crédito/periodicidad: A la fecha de firma.
         </p>
         <p className="is-size-7">
           <strong>Gastos de cobranza:</strong> 10,4 SM (Salarios Mínimos) por

@@ -52,7 +52,7 @@ const Gracias = ({ location }) => (
               <br />
               <div className="social">
                 <h2 className="has-text-primary has-text-centered subtitle">
-                  <FaRegThumbsUp size="2.5rem" />
+                  <FaRegThumbsUp size="2.5em" />
                   <br />
                   <br />
                   ¡COMPÁRTENOS!
