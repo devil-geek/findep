@@ -71,7 +71,7 @@ class Form2 extends Component {
   handleInputChange = async event => {
     const target = event.target;
     const value =
-      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
+      target.type === "checkbox" ? target.checked : target.value;
     const iname = target.name;
 
     if (target.validity.patternMismatch) {

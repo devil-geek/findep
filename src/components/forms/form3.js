@@ -39,7 +39,7 @@ class Form3 extends Component {
   handleInputChange = async event => {
     const target = event.target;
     const value =
-      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
+      target.type === "checkbox" ? target.checked : target.value;
     const iname = target.name;
 
     if (target.validity.patternMismatch) {
@@ -57,10 +57,10 @@ class Form3 extends Component {
     this.request = {
       ...this.request,
       nacimiento: {
-        estadoNacimiento: bornState.toUpperCase(),
+        estadoNacimiento: bornState,
         municipioNacimiento: ""
       },
-      estadoCivil: civil.toUpperCase(),
+      estadoCivil: civil,
       domicilio: [
         {
           ...this.request.domicilio[0],
@@ -131,7 +131,7 @@ class Form3 extends Component {
                           return (
                             <option
                               key={item.id}
-                              value={item.name.toUpperCase()}
+                              value={item.name}
                             >
                               {item.name}
                             </option>

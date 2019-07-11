@@ -8,6 +8,7 @@ import req from "./request.json";
 import Terms from "../terms";
 import Privacy from "../privacy";
 
+
 class Form1 extends Component {
   constructor(props) {
     super(props);
@@ -54,8 +55,7 @@ class Form1 extends Component {
 
   handleInputChange = async event => {
     const target = event.target;
-    const value =
-      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const iname = target.name;
 
     if (target.validity.patternMismatch) {
@@ -258,25 +258,25 @@ class Form1 extends Component {
         plazo: plazo,
         dedicacion: occupation
       },
-      nombre: name.toUpperCase(),
-      segundoNombre: sname.toUpperCase(),
-      apellidoPaterno: lastp.toUpperCase(),
-      apellidoMaterno: lastm.toUpperCase(),
-      correoElectronico: email.toUpperCase(),
+      nombre: name,
+      segundoNombre: sname,
+      apellidoPaterno: lastp,
+      apellidoMaterno: lastm,
+      correoElectronico: email,
       fechaNacimiento: moment(new Date(`${mm} ${dd} ${yy}`)).format(
         "DD/MM/YYYY"
       ),
-      genero: gen.toUpperCase(),
-      rfc: rfc.toUpperCase(),
+      genero: gen,
+      rfc: rfc,
       domicilio: [
         {
-          calle: street.toUpperCase(),
-          colonia: col.toUpperCase(),
+          calle: street,
+          colonia: col,
           cp: cp,
           numeroExterior: noe,
           numeroInterior: noi,
-          estado: city.toUpperCase(),
-          municipio: del.toUpperCase()
+          estado: city,
+          municipio: del
         }
       ],
       telefono: [
@@ -439,7 +439,7 @@ class Form1 extends Component {
                       id="name"
                       placeholder="Tu primer nombre"
                       required
-                      pattern="([A-Za-z ]*)?"
+                      pattern="([A-Za-z´ñÑáéíóúÁÉÍÓÚ\s]*)?"
                       onChange={this.handleInputChange}
                       value={name}
                     />
@@ -460,7 +460,7 @@ class Form1 extends Component {
                       placeholder="Tu segundo nombre"
                       onChange={this.handleInputChange}
                       value={sname}
-                      pattern="([A-Za-z ]*)?"
+                      pattern="([A-Za-z´ñÑáéíóúÁÉÍÓÚ\s]*)?"
                     />
                   </div>
                 </div>
@@ -482,7 +482,7 @@ class Form1 extends Component {
                       onChange={this.handleInputChange}
                       value={lastp}
                       disabled={!name}
-                      pattern="([A-Za-z ]*)?"
+                      pattern="([A-Za-z´ñÑáéíóúÁÉÍÓÚ\s]*)?"
                     />
                   </div>
                 </div>
@@ -503,7 +503,7 @@ class Form1 extends Component {
                       onChange={this.handleInputChange}
                       value={lastm}
                       disabled={!lastp}
-                      pattern="([A-Za-z ]*)?"
+                      pattern="([A-Za-z´ñÑáéíóúÁÉÍÓÚ\s]*)?"
                     />
                   </div>
                 </div>
@@ -848,7 +848,7 @@ class Form1 extends Component {
                       onChange={this.handleInputChange}
                       value={street}
                       disabled={!col}
-                      pattern="([A-Za-z0-9 ]*)?"
+                      pattern="([A-Za-z0-9´ñÑáéíóúÁÉÍÓÚ\s]*)?"
                     />
                   </div>
                 </div>
@@ -1005,7 +1005,7 @@ class Form1 extends Component {
             <Modal
               modal={noCoverModal}
               close={() => {
-                return;
+                this.closeModal("noCoverModal");
               }}
               title="¡LO SENTIMOS!"
               accept={() => this.sendToAef()}
@@ -1017,6 +1017,7 @@ class Form1 extends Component {
               cancelText="Cerrar y cancelar la solicitud"
               idBtnCancel="boton-cerrar-cobertura"
               idBtn="boton-enviar-datos-AEF"
+              hasCloseBtn
             >
               <div className="has-text-centered">
                 <div className="has-text-primary">

@@ -99,7 +99,7 @@ class Form4 extends Component {
   handleInputChange = async event => {
     const target = event.target;
     const value =
-      target.type === "checkbox" ? target.checked : target.value.toUpperCase();
+      target.type === "checkbox" ? target.checked : target.value;
     const iname = target.name;
 
     if (target.validity.patternMismatch) {
@@ -353,7 +353,7 @@ class Form4 extends Component {
                       placeholder="Escribe el nombre de tu empresa o mi…"
                       required
                       onChange={this.handleInputChange}
-                      pattern="([A-Za-z0-9 ]*)?"
+                      pattern="([A-Za-z0-9´ñÑáéíóúÁÉÍÓÚ\s]*)?"
                     />
                   </div>
                 </div>

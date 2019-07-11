@@ -1,13 +1,27 @@
 import React from "react";
 
 const Modal = props => {
-  const { modal, title, children, close, accept, disabled, idBtn, idBtnCancel } = props;
+  const {
+    modal,
+    title,
+    children,
+    close,
+    accept,
+    disabled,
+    idBtn,
+    idBtnCancel,
+    hasCloseBtn
+  } = props;
 
   return (
     <div className={"modal" + modal}>
       <div className="modal-background" onClick={close} />
       <div className="modal-card">
         <section className="modal-card-body">
+          {hasCloseBtn && (
+            <button aria-label="cerrar" className="delete" onClick={close} />
+          )}
+
           <div className="has-text-centered is-uppercase">
             <p className="modal-card-title">{title}</p>
           </div>
